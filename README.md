@@ -2,13 +2,13 @@
 
 Before you submit your project, modify the following table to include everyone's full name and GitHub usernames:
 
-| Group Member Name          | GitHub Username    |
-| :------------------------- |:------------------:|
-| Paul Kerrigan              | PPK44              |
-| <first_name2> <last_name2> | <github_username2> |
-| <first_name3> <last_name3> | <github_username3> |
-| <first_name4> <last_name4> | <github_username4> |
-| <first_name5> <last_name5> | <github_username5> |
+| Group Member Name          | GitHub Username       |
+| :------------------------- |:---------------------:|
+| Paul Kerrigan              | PPK44                 |
+| Sajantth Sripirakasan      | Sajantth-Sripirakasan |
+| <first_name3> <last_name3> | <github_username3>    |
+| <first_name4> <last_name4> | <github_username4>    |
+| <first_name5> <last_name5> | <github_username5>    |
 
 _**Note:** You can delete the unused rows from the table._
 
