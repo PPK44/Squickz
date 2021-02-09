@@ -5,7 +5,7 @@ Before you submit your project, modify the following table to include everyone's
 | Group Member Name          | GitHub Username       |
 | :------------------------- |:---------------------:|
 | Paul Kerrigan              | PPK44                 |
-| Sajantth Sripirakasan      | Sajantth-Sripirakasan |
+| <first_name4> <last_name4> | <github_username4>    |
 | Henry Zheng                | HenryZheng1998        |
 | <first_name4> <last_name4> | <github_username4>    |
 | <first_name5> <last_name5> | <github_username5>    |
