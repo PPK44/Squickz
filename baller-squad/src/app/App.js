@@ -6,9 +6,7 @@ import { Routes } from "./Routes";
 export const App = () => {
   return (
     <Router>
-      <PageWrapper>
-        <Routes />
-      </PageWrapper>
+      <Routes />
     </Router>
   );
 };

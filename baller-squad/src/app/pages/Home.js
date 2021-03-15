@@ -5,8 +5,6 @@ import { TopNav } from "../components/TopNav";
 
 export const Home = () => {
   return (
-    <PageWrapper>
       <TopNav />
-    </PageWrapper>
   );
 };
