@@ -1,6 +1,12 @@
 // Home page for app
 import React from "react";
+import { PageWrapper } from "../components/PageWrapper";
+import { TopNav } from "../components/TopNav";
 
 export const Home = () => {
-  return <div className={"bg-simple-gray-1e flex flex-col w-full h-screen"}>hey</div>;
+  return (
+    <PageWrapper>
+      <TopNav />
+    </PageWrapper>
+  );
 };
