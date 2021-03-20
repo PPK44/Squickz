@@ -6,7 +6,7 @@ import { NavOpenIcon } from "../../svgs/NavOpenIcon";
 export const MobileMenu = ({ toggleMenu, isNavOpen }) => {
   return (
     <>
-      <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+      <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
         <button
           type="button"
           className={

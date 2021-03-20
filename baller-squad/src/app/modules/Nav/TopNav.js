@@ -13,12 +13,7 @@ export const TopNavModule = () => {
   return (
     <TopNav
       isNavOpen={isNavOpen}
-      mobileMenu={
-        <MobileMenu
-          toggleMenu={() => setNavOpen(!isNavOpen)}
-          isNavOpen={isNavOpen}
-        />
-      }
+      toggleMenu = {() => setNavOpen(!isNavOpen)} 
       menuItems = {<MenuItems />}
     />
   );
