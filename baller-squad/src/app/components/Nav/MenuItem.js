@@ -5,7 +5,7 @@ export const MenuItem = ({link, text, isActive}) => {
     <>
       <a
         href={link}
-        className={`ml-4 ${isActive? "bg-blue-600 text-white" : "text-purple-500 hover:bg-purple-700 hover:text-white"} px-8 py-2 rounded-md text-lg font-medium`}
+        className={`ml-4 ${isActive? "bg-blue-600 text-white" : "text-purple-500 hover:bg-purple-700 hover:text-white"} lg:px-8 px-6 py-2 rounded-md text-lg font-medium`}
       >
         {text}
       </a>
