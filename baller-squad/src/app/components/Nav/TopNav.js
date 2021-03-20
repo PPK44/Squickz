@@ -3,7 +3,6 @@
 import React from "react";
 import { NavLogo } from "./NavLogo";
 import { MobileMenuButton } from "./MobileMenuButton";
-import { MobileMenu } from "./MobileMenu";
 
 export const TopNav = ({ toggleMenu, isNavOpen, menuItems }) => {
   return (
