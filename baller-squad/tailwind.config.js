@@ -10,6 +10,8 @@ module.exports = {
       colors: {
         "simple-gray": {
           "1e": "#1e1e1e",
+          '41': "#414141",
+          '30': "#303030",
         },
         blue: {
           primary: "#1e67a6",
