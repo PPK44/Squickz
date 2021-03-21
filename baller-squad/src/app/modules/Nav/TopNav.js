@@ -10,11 +10,11 @@ export const TopNavModule = () => {
   // code taken from https://stackoverflow.com/questions/19014250/rerender-view-on-browser-resize-with-react
   // This is used because once you pass a threshold of size, if you didn't close the nav 
   // before your screen size grew you would use the previous mobile menu sizes
-  function useWindowSize() {
+  function useWindowSize(boolCheck) {
     const [size, setSize] = useState(0);
     useLayoutEffect(() => {
       function updateSize() {
-        if(window.innerWidth >= 640 && window.innerWidth !== size){
+        if(window.innerWidth >= 640 && window.innerWidth !== size && boolCheck){
           setSize(window.innerWidth);
           setNavOpen(false);
         }
@@ -22,11 +22,11 @@ export const TopNavModule = () => {
       window.addEventListener("resize", updateSize);
       updateSize();
       return () => window.removeEventListener("resize", updateSize);
-    }, [size]);
+    }, [size, boolCheck]);
     return size;
   }
 
-  useWindowSize()
+  useWindowSize(isNavOpen)
 
   useEffect(() => {
     console.log("Top Nav re-rendered.  Nav Open = " + isNavOpen)
