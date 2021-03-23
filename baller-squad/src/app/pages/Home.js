@@ -1,7 +1,11 @@
 // Home page for app
 import React from "react";
-import { TopNavModule } from "../modules/Nav/TopNav";
+import { PageWrapper } from "../components/PageWrapper";
 
 export const Home = () => {
-  return <TopNavModule />;
+  return (
+    <PageWrapper>
+      <div>Home</div>
+    </PageWrapper>
+  );
 };
