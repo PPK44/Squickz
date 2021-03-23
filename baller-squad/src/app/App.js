@@ -1,14 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { PageWrapper } from "./components/PageWrapper";
+import { BrowserRouter as Router } from "react-router-dom";
 import { Routes } from "./Routes";
 
 export const App = () => {
   return (
     <Router>
-      <PageWrapper>
-        <Routes />
-      </PageWrapper>
+      <Routes />
     </Router>
   );
 };

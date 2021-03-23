@@ -1,4 +1,9 @@
 /* Import Tailwind css */
 @tailwind base;
+@layer base {
+  body {
+    font-color: "white";
+  }
+}
 @tailwind components;
 @tailwind utilities;

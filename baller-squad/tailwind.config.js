@@ -9,9 +9,19 @@ module.exports = {
     extend: {
       colors: {
         "simple-gray": {
-          "1e": "#1e1e1e"
-        }
-      }
+          "1e": "#1e1e1e",
+          '41': "#414141",
+          '30': "#303030",
+        },
+        blue: {
+          primary: "#1e67a6",
+          highlight: "#84c2f8",
+        },
+        purple: {
+          primay: '#8d2bb3',
+          highlight: '#ca94df'
+        },
+      },
     },
   },
   variants: {
