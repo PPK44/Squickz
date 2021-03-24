@@ -18,7 +18,7 @@ module.exports = {
           highlight: "#84c2f8",
         },
         purple: {
-          primay: '#8d2bb3',
+          primary: '#8d2bb3',
           highlight: '#ca94df'
         },
       },
