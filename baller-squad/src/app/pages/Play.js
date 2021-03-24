@@ -1,6 +1,6 @@
 import React, { useState, useLayoutEffect, useRef } from "react";
-import { PageWrapper } from "../components/PageWrapper";
 import { RelativeWrapper } from "../components/RelativeWrapper";
+import { DisplayWrapper } from "../components/DisplayWrapper";
 
 export const Play = () => {
   const boxRef = useRef();
@@ -26,8 +26,8 @@ export const Play = () => {
 
   return (
     <>
-      <div className={`flex flex-col flex-1 px-5`}>
-        <div ref={containerRef} className={`grid grid-cols-3 gap-4 h-96`}>
+      <DisplayWrapper>
+        <div ref={containerRef} className={`grid grid-cols-3 gap-4 h-full`}>
           <RelativeWrapper>
             <div className={`absolute inset-x-0 bottom-0 text-white`}>
               <p className={`text-3xl`}>Clicks: {clicks}</p>
@@ -51,7 +51,7 @@ export const Play = () => {
             </button>
           </RelativeWrapper>
         </div>
-      </div>
+      </DisplayWrapper>
     </>
   );
 };
