@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
-import { RelativeWrapper } from "../components/RelativeWrapper";
-import { BodyWrapper } from "../components/BodyWrapper";
 import { useTimer } from "../hooks/useTimer";
-import { PageWrapper } from "../components/PageWrapper";
 
 export const Play = () => {
   const boxRef = useRef();
@@ -42,34 +39,35 @@ export const Play = () => {
   const [minutes, seconds] = useTimer(0, 5);
 
   return (
-      <BodyWrapper>
-        <div ref={containerRef} className={`grid grid-cols-3 gap-4`}>
-          <RelativeWrapper>
-            <div className={`absolute inset-x-0 bottom-0 text-white`}>
-              <p className={`text-3xl`}>Clicks: {clicks}</p>
-              <p className={`text-3m`}>Current Inc: {clickHeight}</p>
-              <p className={`text-3m`}>Minutes: {minutes}</p>
-              <p className={`text-3m`}>Seconds: {seconds}</p>
-            </div>
-          </RelativeWrapper>
-          <RelativeWrapper>
-            <div
-              ref={boxRef}
-              className={`absolute 
-                bg-gradient-to-t from-blue-400 via-fuscia-500 to-purple-700
-               inset-x-0 bottom-0`}
-              style={style}
-            ></div>
-          </RelativeWrapper>
-          <RelativeWrapper>
-            <button
-              onClick={() => incrementHeight()}
-              className={`absolute bg-green-500 h-16 w-full inset-x-0 bottom-0`}
-            >
-              Click
-            </button>
-          </RelativeWrapper>
+    <div className={`w-full h-full p-5`}>
+      <div
+        ref={containerRef}
+        className={`grid grid-cols-3 gap-4 h-full w-full`}
+      >
+        <div className={`flex flex-col items-left justify-center h-full`}>
+          <p className={`text-3xl`}>Clicks: {clicks}</p>
+          <p className={`text-3m`}>Current Inc: {clickHeight}</p>
+          <p className={`text-3m`}>Minutes: {minutes}</p>
+          <p className={`text-3m`}>Seconds: {seconds}</p>
         </div>
-      </BodyWrapper>
+        <div className={`flex flex-col-reverse flex1`}>
+          <div
+            ref={boxRef}
+            className={`
+                bg-gradient-to-t from-blue-400 via-fuscia-500 to-purple-700 rounded
+               `}
+            style={style}
+          ></div>
+        </div>
+        <div className={`flex flex-col-reverse flex1`}>
+          <button
+            onClick={() => incrementHeight()}
+            className={`bg-green-500 h-16 w-full rounded`}
+          >
+            Click
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
