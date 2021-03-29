@@ -1,6 +1,7 @@
 import React, { useState, useLayoutEffect, useRef } from "react";
 import { RelativeWrapper } from "../components/RelativeWrapper";
 import { DisplayWrapper } from "../components/DisplayWrapper";
+import { useTimer } from "../hooks/useTimer";
 
 export const Play = () => {
   const boxRef = useRef();
@@ -23,6 +24,9 @@ export const Play = () => {
   const style = {
     height: currentHeight,
   };
+
+  const [ minutes, seconds ] = useTimer(0, 5);
+  console.log(minutes, seconds)
 
   return (
     <>
