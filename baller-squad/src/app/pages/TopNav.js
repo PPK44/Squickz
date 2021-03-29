@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
-import { TopNav } from "../../components/Nav/TopNav";
-import { MenuItems } from "../../components/Nav/MenuItems";
-import { MobileMenu } from "../../components/Nav/MobileMenu";
+import { TopNav } from "../components/Nav/TopNav";
+import { MenuItems } from "../components/Nav/MenuItems";
+import { MobileMenu } from "../components/Nav/MobileMenu";
 
 export const TopNavModule = () => {
   const [isNavOpen, setNavOpen] = useState(false); // state for opening/closing navbar in mobile menu
