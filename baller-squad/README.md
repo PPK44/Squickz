@@ -10,7 +10,7 @@ npm install craco
 
 ## Available Scripts
 
-First time running:
+First time running, in the project directory run:
 
 ### `yarn start`
 
