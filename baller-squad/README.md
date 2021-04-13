@@ -10,6 +10,12 @@ npm install craco
 
 ## Available Scripts
 
+First time running:
+
+### `yarn start`
+
+This will install all the dependencies that you will need to run our project (such as tailwindcss)
+
 In the project directory, you can run:
 
 ### `yarn start`
