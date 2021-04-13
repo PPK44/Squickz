@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Installing packages
+
+In the Terminal type these two commands to install these packages (if you don't have them already):
+npm install yarn
+npm install craco
+
 ## Available Scripts
 
 In the project directory, you can run:
