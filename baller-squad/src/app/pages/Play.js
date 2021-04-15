@@ -1,8 +1,7 @@
 // Timer help from https://upmostly.com/tutorials/build-a-react-timer-component-using-hooks
 import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
-import { TimeFormatter } from "../utils";
 
-const TIME_TO_PLAY = 5;
+const TIME_TO_PLAY = 8;
 
 export const Play = () => {
   const boxRef = useRef();
@@ -17,7 +16,7 @@ export const Play = () => {
 
   const [timer, setTimer] = useState({
     on: false,
-    time: 0,
+    time: TIME_TO_PLAY,
   });
 
   useLayoutEffect(() => {
@@ -30,7 +29,6 @@ export const Play = () => {
   useEffect(() => {
     let interval = null;
     if (timer.on) {
-      console.log("Timer's time:", timer.time);
       interval = setInterval(() => {
         setTimer({
           ...timer,
@@ -40,13 +38,16 @@ export const Play = () => {
       if (timer.time === 0) {
         console.log("Player lost, time's up!");
         clearInterval(interval);
+        setTimer({
+          ...timer,
+          on: false,
+        });
         setGameDetails({
           hasWon: false,
           gameLength: TIME_TO_PLAY,
         });
       }
     } else if (!timer.on && timer.time !== 0) {
-      console.log("Clearing Interval");
       clearInterval(interval);
     }
     return () => {
@@ -63,7 +64,7 @@ export const Play = () => {
     } else if (height <= 900) {
       setClickHeight(2);
     } else if (height <= 1500) {
-      setClickHeight(5);
+      setClickHeight(15);
     } else {
       setClickHeight(10);
     }
@@ -85,15 +86,41 @@ export const Play = () => {
     });
   };
 
+  // Increments the box height that shows how high youve clicked so far
   const incrementHeight = () => {
     const nextClickHeight = currentHeight + clickHeight;
     const containerHeight = containerRef.current.offsetHeight;
     setClicks((c) => c + 1);
     if (containerHeight <= nextClickHeight) {
+      toggleTimer();
       setCurrentHeight(containerHeight);
+      setGameDetails({
+        ...gameDetails,
+        hasWon: true,
+        gameLength: TIME_TO_PLAY - timer.time,
+      });
+      resetGame();
     } else {
       setCurrentHeight((h) => h + clickHeight);
     }
+  };
+
+  // Starts the game
+  const startGame = () => {
+    setTimer({
+      ...timer,
+      on: true,
+      time: TIME_TO_PLAY,
+    });
+  };
+
+  const resetGame = () => {
+    resetTimer();
+    setGameDetails({
+      ...gameDetails,
+      hasWon: false,
+      gameLength: 0,
+    });
   };
 
   const style = {
@@ -121,24 +148,21 @@ export const Play = () => {
           ></div>
         </div>
         <div className={`flex flex-col-reverse flex1`}>
-          <button
-            onClick={() => incrementHeight()}
-            className={`bg-green-500 h-16 w-full rounded`}
-          >
-            Click
-          </button>
-          <button
-            onClick={() => toggleTimer()}
-            className={`bg-red-500 h-16 w-full rounded`}
-          >
-            Toggle Time
-          </button>
-          <button
-            onClick={() => resetTimer()}
-            className={`bg-purple-500 h-16 w-full rounded`}
-          >
-            Reset Timer
-          </button>
+          {timer.on === true ? (
+            <button
+              onClick={() => incrementHeight()}
+              className={`bg-green-500 h-48 w-full rounded`}
+            >
+              Click
+            </button>
+          ) : (
+            <button
+              onClick={() => startGame()}
+              className={`bg-purple-600 h-48 w-full rounded`}
+            >
+              Start Game
+            </button>
+          )}
         </div>
       </div>
     </div>
