@@ -1,7 +1,8 @@
 // Timer help from https://upmostly.com/tutorials/build-a-react-timer-component-using-hooks
 import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
+import { GameModal } from "../components/Game/GameModal";
 
-const TIME_TO_PLAY = 8;
+const TIME_TO_PLAY = 3;
 
 export const Play = () => {
   const boxRef = useRef();
@@ -13,6 +14,7 @@ export const Play = () => {
     hasWon: false,
     gameLength: 0,
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [timer, setTimer] = useState({
     on: false,
@@ -46,6 +48,7 @@ export const Play = () => {
           hasWon: false,
           gameLength: TIME_TO_PLAY,
         });
+        setIsModalOpen(true);
       }
     } else if (!timer.on && timer.time !== 0) {
       clearInterval(interval);
@@ -121,6 +124,13 @@ export const Play = () => {
       hasWon: false,
       gameLength: 0,
     });
+    setClicks(0);
+    setCurrentHeight(1);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    resetGame();
   };
 
   const style = {
@@ -165,6 +175,7 @@ export const Play = () => {
           )}
         </div>
       </div>
+      <GameModal isOpen={isModalOpen} onClose={() => closeModal()}></GameModal>
     </div>
   );
 };
