@@ -2,13 +2,11 @@ import { Backdrop, Fade, Modal } from "@material-ui/core";
 import React from "react";
 
 export const GameModal = ({ isOpen, onClose, hasWon, clicks, timeLeft }) => {
-  console.log(hasWon);
   return (
     <Modal
       aria-labelledby="Game pop-up"
       aria-describedby="Pop=up screen displaying game details"
       open={isOpen}
-      onClose={onClose}
       className={`flex items-center justify-center h-full w-full self-center border-blue-300`}
       closeAfterTransition
       BackdropComponent={Backdrop}

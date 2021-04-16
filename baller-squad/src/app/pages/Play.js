@@ -128,8 +128,10 @@ export const Play = () => {
     setCurrentHeight(1);
   };
 
-  const closeModal = () => {
+  const closeModal = async () => {
     setIsModalOpen(false);
+    setCurrentHeight(1);
+    await new Promise(r => setTimeout(r, 500));
     resetGame();
   };
 
