@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { GameModal } from "../components/Game/GameModal";
 
-const TIME_TO_PLAY = 3;
+const TIME_TO_PLAY = 15;
 
 export const Play = () => {
   const boxRef = useRef();
@@ -102,7 +102,7 @@ export const Play = () => {
         hasWon: true,
         gameLength: TIME_TO_PLAY - timer.time,
       });
-      resetGame();
+      setIsModalOpen(true);
     } else {
       setCurrentHeight((h) => h + clickHeight);
     }
@@ -161,7 +161,7 @@ export const Play = () => {
           {timer.on === true ? (
             <button
               onClick={() => incrementHeight()}
-              className={`bg-green-500 h-48 w-full rounded`}
+              className={`bg-green-500 h-48 w-full rounded focus:outline-none`}
             >
               Click
             </button>
@@ -175,7 +175,17 @@ export const Play = () => {
           )}
         </div>
       </div>
-      <GameModal isOpen={isModalOpen} onClose={() => closeModal()}></GameModal>
+      <div
+        className={`flex flex-col flex1 justify-center items-center relative`}
+      >
+        <GameModal
+          isOpen={isModalOpen}
+          onClose={() => closeModal()}
+          hasWon={gameDetails.hasWon}
+          clicks={clicks}
+          timeLeft={gameDetails.gameLength}
+        ></GameModal>
+      </div>
     </div>
   );
 };
