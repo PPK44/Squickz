@@ -1,5 +1,6 @@
 // Timer help from https://upmostly.com/tutorials/build-a-react-timer-component-using-hooks
 import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
+import { GameButton } from "../components/Game/GameButton";
 import { GameModal } from "../components/Game/GameModal";
 
 const TIME_TO_PLAY = 15;
@@ -15,6 +16,7 @@ export const Play = () => {
     gameLength: 0,
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [wiggleEffect, setWiggleEffect] = useState(false);
 
   const [timer, setTimer] = useState({
     on: false,
@@ -93,6 +95,7 @@ export const Play = () => {
   const incrementHeight = () => {
     const nextClickHeight = currentHeight + clickHeight;
     const containerHeight = containerRef.current.offsetHeight;
+    setWiggleEffect(true);
     setClicks((c) => c + 1);
     if (containerHeight <= nextClickHeight) {
       toggleTimer();
@@ -131,7 +134,7 @@ export const Play = () => {
   const closeModal = async () => {
     setIsModalOpen(false);
     setCurrentHeight(1);
-    await new Promise(r => setTimeout(r, 500));
+    await new Promise((r) => setTimeout(r, 500));
     resetGame();
   };
 
@@ -161,19 +164,26 @@ export const Play = () => {
         </div>
         <div className={`flex flex-col-reverse flex1`}>
           {timer.on === true ? (
-            <button
-              onClick={() => incrementHeight()}
-              className={`bg-green-500 h-48 w-full rounded focus:outline-none`}
-            >
-              Click
-            </button>
+            <div className={`space-y-8 flex flex-col flex1`}>
+              <GameButton
+                onClick={() => resetGame()}
+                color="bg-purple-700"
+                text="Reset Game"
+              />
+              <GameButton
+                onClick={() => incrementHeight()}
+                color="bg-blue-500"
+                text="Click"
+                classes={`${wiggleEffect && "animate-wiggle"}`}
+                animateEnd={() => setWiggleEffect(false)}
+              />
+            </div>
           ) : (
-            <button
+            <GameButton
               onClick={() => startGame()}
-              className={`bg-purple-600 h-48 w-full rounded`}
-            >
-              Start Game
-            </button>
+              color="bg-purple-600"
+              text="Start Game"
+            />
           )}
         </div>
       </div>
