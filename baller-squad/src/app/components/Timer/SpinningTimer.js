@@ -1,4 +1,5 @@
 import React from "react";
+import { Spinner } from './Spinner'
 
 export const SpinningTimer = ({ time }) => {
   return (
@@ -6,12 +7,8 @@ export const SpinningTimer = ({ time }) => {
       <div
         className={`flex relative items-center justify-center h-full w-full z-0`}
       >
-        <div
-          className={`rounded-full aboslute inset-0 flex border-t-4 border-pink-500 flex h-28 w-28 animate-spin z-10`}
-        />        <div
-          className={`rounded-full aboslute inset-0 flex border-t-4 border-pink-500 flex h-28 w-28 animate-reverse-spin z-10`}
-        />
-
+        <Spinner color={`blue-500`} spin={`reverse-spin`} borderSide={`b`} size={`36`} />
+        <Spinner color={`pink-500`} spin={`spin`} borderSide={`t`} size={`28`} />
         <div
           className={`absolute inset-0 flex justify-center items-center z-10`}
         >

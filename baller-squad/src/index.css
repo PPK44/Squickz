@@ -7,3 +7,6 @@
 }
 @tailwind components;
 @tailwind utilities;
+.loader {
+	border-top-color: #3498db;
+}
