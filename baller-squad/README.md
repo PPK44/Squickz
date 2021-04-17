@@ -2,7 +2,19 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Installing packages
+
+In the Terminal type these two commands to install these packages (if you don't have them already):
+npm install yarn
+npm install craco
+
 ## Available Scripts
+
+First time running, in the project directory run:
+
+### `yarn start`
+
+This will install all the dependencies that you will need to run our project (such as tailwindcss)
 
 In the project directory, you can run:
 

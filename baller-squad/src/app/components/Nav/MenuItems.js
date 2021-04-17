@@ -6,6 +6,13 @@ export const MenuItems = ({ isNavOpen, currentRoute, setCurrentRoute }) => {
     <>
       <MenuItem
         link="/"
+        text="Home"
+        isNavOpen={isNavOpen}
+        currentRoute={currentRoute}
+        setCurrentRoute={setCurrentRoute}
+      />
+      <MenuItem
+        link="/play"
         text="Play"
         isNavOpen={isNavOpen}
         currentRoute={currentRoute}

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
-import { TopNav } from "../../components/Nav/TopNav";
-import { MenuItems } from "../../components/Nav/MenuItems";
-import { MobileMenu } from "../../components/Nav/MobileMenu";
+import { TopNav } from "../components/Nav/TopNav";
+import { MenuItems } from "../components/Nav/MenuItems";
+import { MobileMenu } from "../components/Nav/MobileMenu";
 
 export const TopNavModule = () => {
   const [isNavOpen, setNavOpen] = useState(false); // state for opening/closing navbar in mobile menu
-  const [currentRoute, setCurrentRoute] = useState(""); // used for storing current visited route
+  const [currentRoute, setCurrentRoute] = useState("/"); // used for storing current visited route
 
   // code taken from https://stackoverflow.com/questions/19014250/rerender-view-on-browser-resize-with-react
   // This is used because once you pass a threshold of size, if you didn't close the nav 
