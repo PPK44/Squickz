@@ -41,8 +41,8 @@ module.exports = {
       },
       animation: {
         wiggle: "wiggle 100ms ease-in-out",
-        spin: 'spin 1s infinite linear',
-        'reverse-spin': 'spin 1s infinite linear reverse'
+        spin: 'spin 2s infinite linear',
+        'reverse-spin': 'spin 1.5s infinite linear reverse'
       },
     },
   },

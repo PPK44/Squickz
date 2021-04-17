@@ -156,7 +156,7 @@ export const Play = () => {
         className={`grid grid-cols-3 gap-4 h-full w-full`}
       >
         <div className={`flex flex-col items-left justify-center h-full`}>
-          <SpinningTimer time={timer.time} />
+          <SpinningTimer time={timer.time} started={timer.on}/>
           <p className={`text-3xl`}>Clicks: {clicks}</p>
           <p className={`text-3m`}>Current Inc: {clickHeight}</p>
           <p className={`text-3m`}>Clicks to win: {gameDetails.maxClicks}</p>

@@ -7,6 +7,19 @@
 }
 @tailwind components;
 @tailwind utilities;
-.loader {
-	border-top-color: #3498db;
+.spin-pink {
+  border-top-color: #ec4899;
+  border-right-color: #ec4899;
+  border-left-color: #ec4899;
+}
+
+.spin-blue {
+  border-bottom-color: #3b82f6;
+  border-right-color: #3b82f6;
+  border-top-color: #3b82f6;
+}
+
+.spin-purple {
+  border-top-color: #8b5cf6;
+  border-left-color: #8b5cf6;
 }
