@@ -5,7 +5,7 @@ export const GameButton = ({ onClick, text, color, classes = null, animateEnd = 
     <>
       <button
         onClick={onClick}
-        className={`${color} h-48 text-lg w-full rounded focus:outline-none ${classes}`}
+        className={`${color} h-48 text-lg w-full rounded focus:outline-none ${classes} hover:bg-opacity-80 ease-in duration-100`}
         onAnimationEnd={animateEnd}
       >
         {text}

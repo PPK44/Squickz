@@ -159,7 +159,7 @@ export const Play = () => {
         ref={containerRef}
         className={`grid grid-cols-3 gap-4 h-full w-full`}
       >
-        <div className={`flex flex-col items-center justify-between h-full space-y-16`}>
+        <div className={`flex flex-col items-center justify-between h-full space-y-16 bg-simple-gray-29 lg:p-5 p-2 rounded-lg`}>
           <SpinningTimer time={timer.time} started={timer.on} />
           <GameDetails clicks={clicks} maxClicks={gameDetails.maxClicks} increment={clickHeight}/>
         </div>
