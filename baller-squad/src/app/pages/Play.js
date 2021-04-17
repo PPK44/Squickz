@@ -3,6 +3,7 @@ import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { GameButton } from "../components/Game/GameButton";
 import { GameModal } from "../components/Game/GameModal";
 import { SpinningTimer } from "../components/Timer/SpinningTimer";
+import { GameDetails } from "../components/Game/GameDetails";
 
 const TIME_TO_PLAY = 15;
 
@@ -28,10 +29,10 @@ export const Play = () => {
   useLayoutEffect(() => {
     if (boxRef.current) {
       setCurrentHeight(boxRef.current.offsetHeight);
-      console.log("Height:", boxRef.current.offsetHeight);
     }
   }, []);
 
+  // set up the timer
   useEffect(() => {
     let interval = null;
     if (timer.on) {
@@ -41,8 +42,8 @@ export const Play = () => {
           time: timer.time - 1,
         });
       }, 1000);
+      // timer is over
       if (timer.time === 0) {
-        console.log("Player lost, time's up!");
         clearInterval(interval);
         setTimer({
           ...timer,
@@ -83,7 +84,6 @@ export const Play = () => {
   }, [clickHeight]);
 
   const toggleTimer = () => {
-    console.log("Toggling timer");
     setTimer({
       ...timer,
       on: !timer.on,
@@ -91,7 +91,6 @@ export const Play = () => {
   };
 
   const resetTimer = () => {
-    console.log("Resetting timer");
     setTimer({
       on: false,
       time: TIME_TO_PLAY,
@@ -141,6 +140,7 @@ export const Play = () => {
   const closeModal = async () => {
     setIsModalOpen(false);
     setCurrentHeight(1);
+    // sleep for 500ms to allow modal to close without the data being reset on the modal
     await new Promise((r) => setTimeout(r, 500));
     resetGame();
   };
@@ -155,11 +155,9 @@ export const Play = () => {
         ref={containerRef}
         className={`grid grid-cols-3 gap-4 h-full w-full`}
       >
-        <div className={`flex flex-col items-left justify-center h-full`}>
-          <SpinningTimer time={timer.time} started={timer.on}/>
-          <p className={`text-3xl`}>Clicks: {clicks}</p>
-          <p className={`text-3m`}>Current Inc: {clickHeight}</p>
-          <p className={`text-3m`}>Clicks to win: {gameDetails.maxClicks}</p>
+        <div className={`flex flex-col items-center justify-between h-full space-y-16`}>
+          <SpinningTimer time={timer.time} started={timer.on} />
+          <GameDetails clicks={clicks} maxClicks={gameDetails.maxClicks} />
         </div>
         <div className={`flex flex-col-reverse flex1`}>
           <div
