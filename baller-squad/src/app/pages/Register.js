@@ -1,5 +1,5 @@
 // Home page for app
-import { Fragment, useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
@@ -7,16 +7,34 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
+import { UserContext } from "../userContext";
 
 export const Register = () =>{   
     const [open, setOpen] = useState(true);
+    const userRef = useRef('');
+    const passRef = useRef('');
+    const emailRef = useRef('');
     
-    const handleClose = (value) => {
+    const handleClose = () => {
         setOpen(false);
         return <Link to="/"/>
     };
     
+    const formSubmit = () => {
+        fetch(`http://localhost:3000/registerUser`,{
+            method: 'post',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({userName: userRef.current.value, email: emailRef.current.value, passwd: passRef.current.value})
+        }).then((res) => res.text())
+        .then(res =>{
+            console.log(res);
+            
+        });
+    }
+
     return (
         <div>
         <Dialog 
@@ -32,6 +50,7 @@ export const Register = () =>{
                 id="name"
                 label="Email Address"
                 type="email"
+                inputRef={emailRef}
                 fullWidth
             />
             <TextField
@@ -39,7 +58,7 @@ export const Register = () =>{
                 margin="dense"
                 id="user"
                 label="Username"
-                type="email"
+                inputRef={userRef}
                 fullWidth
             />
             <TextField
@@ -48,6 +67,7 @@ export const Register = () =>{
                 id="pass"
                 label="Password"
                 type="password"
+                inputRef={passRef}
                 fullWidth
             />
             <TextField
@@ -65,7 +85,7 @@ export const Register = () =>{
                 Cancel
                 </Link>
             </Button>
-            <Button onClick={handleClose} color="primary">
+            <Button onClick={formSubmit} color="primary">
                 Login
             </Button>
             </DialogActions>

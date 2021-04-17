@@ -20,6 +20,16 @@ app.get("/getUsers", (req, res) => {
     }
   });
 })
+app.post("/registerUser", (req, res) => {
+  model.User.create({user: req.body.userName, email: req.body.email, password: req.body.passwd}, function(err){
+    if (err) {
+      throw err;
+    }else{
+      console.log("inserted successfully");
+      res.send("Inserted successfully");
+    }
+  });
+})
 
 
 app.listen(PORT, () => {

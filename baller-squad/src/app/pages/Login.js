@@ -1,5 +1,5 @@
 // Home page for app
-import { Fragment, useRef, useState} from "react";
+import { useRef, useState, useContext} from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
@@ -8,14 +8,13 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import { UserContext } from "../userContext";
 
 export const Login = () =>{   
      const [open, setOpen] = useState(true);
-    // const [username, setUsername] = useState("");
-    // const [email, setEmail] = useState("");
-    // const [passwd, setPassword] = useState("");
-    const userRef = useRef('');
-    const passRef = useRef('');
+     const {userInfo, setUserInfo} = useContext(UserContext);
+     const userRef = useRef('');
+     const passRef = useRef('');
     
     const handleClose = (value) => {
         setOpen(false);
@@ -24,13 +23,11 @@ export const Login = () =>{
 
 
     const formSubmit = () => {
-        console.log(userRef.current.value)
         fetch(`http://localhost:3000/getUsers?username=${userRef.current.value}`)
         .then((res) => res.json())
         .then(res =>{
-            console.log(res);
-            
-            
+            const data = {userName: res[0].user, isLoggedIn: true};
+            setUserInfo(data);
        
         });
     }
