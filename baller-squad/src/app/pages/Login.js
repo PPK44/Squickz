@@ -1,6 +1,6 @@
 // Home page for app
 import { Fragment, useRef, useState } from "react";
-import { TopNavModule } from "../modules/Nav/TopNav";
+import { TopNavModule } from "./TopNav";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
