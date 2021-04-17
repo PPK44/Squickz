@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb+srv://root:daBallerSquad98$@dacluster0.x22ip.mongodb.net/daCluster0?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://root:daBallerSquad98$@dacluster0.x22ip.mongodb.net/ballersquad?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }, function(error) {
@@ -16,17 +16,14 @@ mongoose.connect('mongodb+srv://root:daBallerSquad98$@dacluster0.x22ip.mongodb.n
 
 mongoose.set('useCreateIndex', true);
 
-// let Schema = mongoose.Schema;
-// let showtimeSchema = new Schema({
-//     id: String,
-//     title: String,
-//     location: Number,
-//     dates: String,
-//     times: [String]
-// }, {
-//     collection: 'showtimes'
-// });
+let Schema = mongoose.Schema;
+let userSchema = new Schema({
+    email: String,
+    user: String,
+    password: String
+}, {
+    collection: 'users'
+});
 
-
-// module.exports.Showtime = mongoose.model('showtime', showtimeSchema);
+module.exports.User = mongoose.model('User', userSchema);
 

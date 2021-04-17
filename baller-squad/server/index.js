@@ -10,6 +10,17 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get("/getUsers", (req, res) => {
+  console.log(req.query.username)
+  model.User.find({user: req.query.username}).then(function(list){
+    if(list.length > 0){
+      res.send(list);
+    }else{
+      console.log("ERROR! no results on that data")
+    }
+  });
+})
+
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
