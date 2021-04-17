@@ -76,6 +76,10 @@ export const Play = () => {
     } else {
       setClickHeight(10);
     }
+  }, []);
+
+  // calc max clicks
+  useEffect(() => {
     setGameDetails({
       hasWon: false,
       maxClicks: Math.ceil(containerRef.current.offsetHeight / clickHeight),
@@ -157,7 +161,7 @@ export const Play = () => {
       >
         <div className={`flex flex-col items-center justify-between h-full space-y-16`}>
           <SpinningTimer time={timer.time} started={timer.on} />
-          <GameDetails clicks={clicks} maxClicks={gameDetails.maxClicks} />
+          <GameDetails clicks={clicks} maxClicks={gameDetails.maxClicks} increment={clickHeight}/>
         </div>
         <div className={`flex flex-col-reverse flex1`}>
           <div
