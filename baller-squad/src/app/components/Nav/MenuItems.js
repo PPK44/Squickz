@@ -25,6 +25,20 @@ export const MenuItems = ({ isNavOpen, currentRoute, setCurrentRoute }) => {
         currentRoute={currentRoute}
         setCurrentRoute={setCurrentRoute}
       />
+      <MenuItem
+        link="/login"
+        text="Login"
+        isNavOpen={isNavOpen}
+        currentRoute={currentRoute}
+        setCurrentRoute={setCurrentRoute}
+      />
+      <MenuItem
+        link="/register"
+        text="Register"
+        isNavOpen={isNavOpen}
+        currentRoute={currentRoute}
+        setCurrentRoute={setCurrentRoute}
+      />
     </>
   );
 };
