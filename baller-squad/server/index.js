@@ -26,7 +26,7 @@ app.post("/registerUser", (req, res) => {
       throw err;
     }else{
       console.log("inserted successfully");
-      res.send("Inserted successfully");
+      res.send(JSON.stringify({userName: req.body.userName}));
     }
   });
 })

@@ -14,6 +14,7 @@ export const Register = () =>{
     const userRef = useRef('');
     const passRef = useRef('');
     const emailRef = useRef('');
+    const {userInfo, setUserInfo} = useContext(UserContext);
     
     const handleClose = () => {
         setOpen(false);
@@ -28,9 +29,11 @@ export const Register = () =>{
                 'Content-Type': 'application/json'
             },
             body:JSON.stringify({userName: userRef.current.value, email: emailRef.current.value, passwd: passRef.current.value})
-        }).then((res) => res.text())
+        }).then((res) => res.json())
         .then(res =>{
-            console.log(res);
+            console.log(res.userName);
+            const data = {userName: res.userName, isLoggedIn: true};
+            setUserInfo(data);
             
         });
     }
@@ -86,7 +89,7 @@ export const Register = () =>{
                 </Link>
             </Button>
             <Button onClick={formSubmit} color="primary">
-                Login
+                Register
             </Button>
             </DialogActions>
             </div>
