@@ -34,9 +34,15 @@ module.exports = {
 
           },
         },
+        spin: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
       },
       animation: {
         wiggle: "wiggle 100ms ease-in-out",
+        spin: 'spin 1s infinite linear',
+        'reverse-spin': 'spin 1s infinite linear reverse'
       },
     },
   },

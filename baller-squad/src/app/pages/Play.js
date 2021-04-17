@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { GameButton } from "../components/Game/GameButton";
 import { GameModal } from "../components/Game/GameModal";
+import { SpinningTimer } from "../components/Timer/SpinningTimer";
 
 const TIME_TO_PLAY = 15;
 
@@ -13,6 +14,7 @@ export const Play = () => {
   const [currentHeight, setCurrentHeight] = useState(1);
   const [gameDetails, setGameDetails] = useState({
     hasWon: false,
+    maxClicks: 0,
     gameLength: 0,
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -73,7 +75,12 @@ export const Play = () => {
     } else {
       setClickHeight(10);
     }
-  }, []);
+    setGameDetails({
+      hasWon: false,
+      maxClicks: Math.ceil(containerRef.current.offsetHeight / clickHeight),
+      gameLength: 0,
+    });
+  }, [clickHeight]);
 
   const toggleTimer = () => {
     console.log("Toggling timer");
@@ -149,9 +156,10 @@ export const Play = () => {
         className={`grid grid-cols-3 gap-4 h-full w-full`}
       >
         <div className={`flex flex-col items-left justify-center h-full`}>
-          <p className={`text-3xl`}>My Timer: {timer.time}</p>
+          <SpinningTimer time={timer.time} />
           <p className={`text-3xl`}>Clicks: {clicks}</p>
           <p className={`text-3m`}>Current Inc: {clickHeight}</p>
+          <p className={`text-3m`}>Clicks to win: {gameDetails.maxClicks}</p>
         </div>
         <div className={`flex flex-col-reverse flex1`}>
           <div
