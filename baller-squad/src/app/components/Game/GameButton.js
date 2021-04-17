@@ -1,6 +1,6 @@
 import React from "react";
 
-export const GameButton = ({ onClick, text, color, classes, animateEnd }) => {
+export const GameButton = ({ onClick, text, color, classes = null, animateEnd = null }) => {
   return (
     <>
       <button
