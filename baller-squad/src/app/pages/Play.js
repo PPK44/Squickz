@@ -4,6 +4,7 @@ import { GameButton } from "../components/Game/GameButton";
 import { GameModal } from "../components/Game/GameModal";
 import { SpinningTimer } from "../components/Timer/SpinningTimer";
 import { GameDetails } from "../components/Game/GameDetails";
+import { Incrementer } from "../components/Game/Incrementer";
 
 const TIME_TO_PLAY = 15;
 
@@ -159,9 +160,15 @@ export const Play = () => {
         ref={containerRef}
         className={`grid grid-cols-3 gap-4 h-full w-full`}
       >
-        <div className={`flex flex-col items-center justify-between h-full space-y-16 bg-simple-gray-29 lg:p-5 p-2 rounded-lg`}>
+        <div
+          className={`flex flex-col items-center justify-between h-full space-y-16 bg-simple-gray-29 lg:p-5 p-2 rounded-lg`}
+        >
           <SpinningTimer time={timer.time} started={timer.on} />
-          <GameDetails clicks={clicks} maxClicks={gameDetails.maxClicks} increment={clickHeight}/>
+          <GameDetails
+            clicks={clicks}
+            maxClicks={gameDetails.maxClicks}
+            increment={clickHeight}
+          />
         </div>
         <div className={`flex flex-col-reverse flex1`}>
           <div
@@ -172,7 +179,17 @@ export const Play = () => {
             style={style}
           ></div>
         </div>
-        <div className={`flex flex-col-reverse flex1`}>
+        <div
+          className={`flex flex-col flex1 bg-simple-gray-29 rounded-lg p-2 lg:p-5 justify-between space-y-16`}
+        >
+          <div className={`flex flex-col flex1 space-y-10`}>
+            <Incrementer color={`blue`} text={`Time`} value={TIME_TO_PLAY} />
+            <Incrementer
+              color={`pink`}
+              text={`Increment`}
+              value={TIME_TO_PLAY}
+            />
+          </div>
           {timer.on === true ? (
             <div className={`space-y-8 flex flex-col flex1`}>
               <GameButton

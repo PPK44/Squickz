@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Spinner = ({ color, spin, lgSize, size }) => {
+export const Spinner = ({ color, spin, lgSize, mdSize, size }) => {
   let colorClass;
   switch (color) {
     case "purple":
@@ -20,7 +20,7 @@ export const Spinner = ({ color, spin, lgSize, size }) => {
     <>
       <div className={`absolute inset-0 flex justify-center items-center z-10`}>
         <div
-          className={`${colorClass} rounded-full flex border-4 border-green-500 border-opacity-0 ease-linear border-black lg:h-${lgSize} lg:w-${lgSize} h-${size} w-${size} animate-${spin} z-30`}
+          className={`${colorClass} rounded-full flex border-4 border-green-500 border-opacity-0 ease-linear border-black lg:h-${lgSize} lg:w-${lgSize} md:w-${mdSize} md:h-${mdSize} h-${size} w-${size} animate-${spin} z-30`}
         />
       </div>
     </>
