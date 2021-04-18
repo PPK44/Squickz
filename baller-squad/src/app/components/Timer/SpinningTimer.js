@@ -8,7 +8,7 @@ export const SpinningTimer = ({ time, started }) => {
       className={`lg:h-52 lg:w-52 md:w-32 md:h-32 w-24 h-24 items-center justify-center`}
     >
       <div
-        className={`flex relative items-center justify-center h-full w-full z-0 rounded-full bg-simple-gray-1e`}
+        className={`flex relative items-center justify-center h-full w-full z-0 rounded-full`}
       >
         {started === true ? (
           <>
