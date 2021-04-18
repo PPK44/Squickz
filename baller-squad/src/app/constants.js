@@ -5,11 +5,11 @@ export const DIFFICULTIES = [
   },
   {
     difficulty: "Medium",
-    value: 30,
+    value: 8,
   },
   {
     difficulty: "Hard",
-    value: 50,
+    value: 1,
   },
 ];
 

@@ -71,15 +71,15 @@ export const Play = () => {
   useEffect(() => {
     const { innerHeight: height } = window;
     if (height <= 650) {
-      setClickHeight(1);
+      setClickHeight(1 * DIFFICULTIES[gameDetails.difficulty].value);
     } else if (height <= 900) {
-      setClickHeight(2);
+      setClickHeight(4 * DIFFICULTIES[gameDetails.difficulty].value);
     } else if (height <= 1500) {
-      setClickHeight(15);
+      setClickHeight(7 * DIFFICULTIES[gameDetails.difficulty].value);
     } else {
-      setClickHeight(10);
+      setClickHeight(10 * DIFFICULTIES[gameDetails.difficulty].value);
     }
-  }, []);
+  }, [gameDetails.difficulty]);
 
   // calc max clicks
   useEffect(() => {
@@ -89,7 +89,7 @@ export const Play = () => {
       maxClicks: Math.ceil(containerRef.current.offsetHeight / clickHeight),
       gameLength: 0,
     });
-    console.log("GAME DETAILS:",gameDetails)
+    // eslint error but idk if i add dependency then it forever updates so wut ever yolo
   }, [clickHeight]);
 
   const toggleTimer = () => {
@@ -118,7 +118,7 @@ export const Play = () => {
       setGameDetails({
         ...gameDetails,
         hasWon: true,
-        gameLength: GAME_TIMES[gameDetails.maxTime] - timer.time,
+        gameLength: timer.time,
       });
       setIsModalOpen(true);
     } else {
@@ -156,7 +156,6 @@ export const Play = () => {
 
   const incrementTime = () => {
     if (gameDetails.maxTime < GAME_TIMES.length - 1) {
-      console.log("Incrementing Time");
       setGameDetails({
         ...gameDetails,
         maxTime: gameDetails.maxTime + 1,
@@ -171,7 +170,6 @@ export const Play = () => {
 
   const decrementTime = () => {
     if (gameDetails.maxTime > 0) {
-      console.log("Decrementing Time");
       setGameDetails({
         ...gameDetails,
         maxTime: gameDetails.maxTime - 1,
@@ -187,7 +185,6 @@ export const Play = () => {
     console.log(DIFFICULTIES.length);
     console.log(gameDetails.difficulty);
     if (gameDetails.difficulty < DIFFICULTIES.length - 1) {
-      console.log("Incrementing Difficulty");
       setGameDetails({
         ...gameDetails,
         difficulty: gameDetails.difficulty + 1,
@@ -197,7 +194,6 @@ export const Play = () => {
 
   const decrementDifficulty = () => {
     if (gameDetails.difficulty > 0) {
-      console.log("Decrementing Difficulty");
       setGameDetails({
         ...gameDetails,
         difficulty: gameDetails.difficulty - 1,
