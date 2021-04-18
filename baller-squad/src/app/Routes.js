@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { HighScores } from "./pages/HighScores";
 import { Play } from "./pages/Play";
+import { Rules } from "./pages/Rules";
 
 export const Routes = () => {
   return (
