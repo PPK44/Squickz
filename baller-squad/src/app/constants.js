@@ -9,6 +9,10 @@ export const DIFFICULTIES = [
   },
   {
     difficulty: "Hard",
+    value: 4,
+  },
+  {
+    difficulty: "Hell",
     value: 1,
   },
 ];
