@@ -5,6 +5,7 @@ import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { HighScores } from "./pages/HighScores";
 import { Play } from "./pages/Play";
+import { Rules } from "./pages/Rules";
 
 export const Routes = () => {
   return (
@@ -13,6 +14,7 @@ export const Routes = () => {
       <Route exact path="/hiScores" component={HighScores} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
+      <Route exact path="/rules" component={Rules} />
       <Route exact path="/play" component={Play} />
     </Switch>
   );
