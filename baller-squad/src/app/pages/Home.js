@@ -13,13 +13,13 @@ export const Home = () => {
             <div className="text-2xl p-5">The newest and hotest game in town.</div>
             <div className="text-2xl p-5">More addicting than Runescape</div>
             <div className="text-2xl p-5">Click play on the top right to play now!</div>
-            <div className="text-4xl p-5">Have fun!</div>
+            <div className="text-4xl p-5">Please let us pass</div>
           </div>
           <div>          
-            <div className="text-2xl p-5">Created by the Ballersquad  </div>
-            <div className="text-2xl p-5">Click as many times as you can before the time runs out</div>
-            <div className="text-2xl p-5">Sign up to save your high score and compare yourself to others!</div>
-            <div className="text-4xl p-5">Have fun!</div>
+            <div className="text-2xl p-5">Created by the Ballersquad</div>
+            <div className="text-2xl p-5">Calvin Lapp</div>
+            <div className="text-2xl p-5">Paul Kerrigan!</div>
+            <div className="text-2xl p-5">Henry Zheng</div>
           </div>
         </div>
         <div className="text-2 text-center p-4">Kanye: "{loading ? "loading..." : data}"</div>
