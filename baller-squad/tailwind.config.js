@@ -13,7 +13,7 @@ module.exports = {
           "1e": "#1e1e1e",
           41: "#414141",
           30: "#303030",
-          29: "#292929",
+          29: '#292929',
         },
         blue: {
           primary: "#1e67a6",
@@ -35,9 +35,15 @@ module.exports = {
 
           },
         },
+        spin: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
       },
       animation: {
         wiggle: "wiggle 100ms ease-in-out",
+        spin: 'spin 2s infinite linear',
+        'reverse-spin': 'spin 1.5s infinite linear reverse'
       },
     },
   },
