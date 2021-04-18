@@ -29,7 +29,7 @@ export const MenuItems = ({ isNavOpen, currentRoute, setCurrentRoute }) => {
       />
       <MenuItem
         link="/hiScores"
-        text="Hi Scores"
+        text="High Scores"
         isNavOpen={isNavOpen}
         currentRoute={currentRoute}
         setCurrentRoute={setCurrentRoute}
@@ -38,8 +38,7 @@ export const MenuItems = ({ isNavOpen, currentRoute, setCurrentRoute }) => {
         text="Login" 
         setCurrentRoute={setCurrentRoute}
         isNavOpen={isNavOpen}  
-      >
-      </LoginMenuItem>
+      />
       
       
     </>
