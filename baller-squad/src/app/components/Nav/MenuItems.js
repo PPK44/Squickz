@@ -34,9 +34,12 @@ export const MenuItems = ({ isNavOpen, currentRoute, setCurrentRoute }) => {
         currentRoute={currentRoute}
         setCurrentRoute={setCurrentRoute}
       />
-        <LoginMenuItem text="Login" setCurrentRoute={setCurrentRoute}>
-
-        </LoginMenuItem>
+      <LoginMenuItem 
+        text="Login" 
+        setCurrentRoute={setCurrentRoute}
+        isNavOpen={isNavOpen}  
+      >
+      </LoginMenuItem>
       
       
     </>

@@ -3,7 +3,10 @@ import React, {useState, useContext} from "react";
 import { Login } from "../../pages/Login"
 import { UserContext } from "../../userContext";
 
-export const LoginMenuItem = ({text}) => {
+const navNotOpenClass = `ml-4 lg:px-8 px-4 py-4 rounded-md text-lg font-medium`;
+const navOpenClass = `block px-3 py-2 rounded-md text-base font-medium text-white`;
+
+export const LoginMenuItem = ({text, isNavOpen}) => {
 
 const {userInfo, setUserInfo} = useContext(UserContext);
 
@@ -26,7 +29,7 @@ const [isOpen, setDialogOpen] = useState(false);
       <>
       {
       userInfo.isLoggedIn ? null : <a
-        className={"cursor-pointer text-purple-500 hover:bg-purple-700 hover:text-white ml-4 lg:px-8 px-4 py-4 rounded-md text-lg font-medium"} 
+        className={`cursor-pointer text-purple-500 hover:bg-purple-700 hover:text-white ${isNavOpen ? navOpenClass : navNotOpenClass}`} 
         onClick={()=>loadLogin()}
       >
         {text}
