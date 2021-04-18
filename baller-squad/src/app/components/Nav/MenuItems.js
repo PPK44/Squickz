@@ -1,7 +1,9 @@
 import React from "react";
 import { MenuItem } from "./MenuItem";
+import { LoginMenuItem } from "./LoginMenuItem";
 
 export const MenuItems = ({ isNavOpen, currentRoute, setCurrentRoute }) => {
+
   return (
     <>
       <MenuItem
@@ -32,6 +34,11 @@ export const MenuItems = ({ isNavOpen, currentRoute, setCurrentRoute }) => {
         currentRoute={currentRoute}
         setCurrentRoute={setCurrentRoute}
       />
+        <LoginMenuItem text="Login" setCurrentRoute={setCurrentRoute}>
+
+        </LoginMenuItem>
+      
+      
     </>
   );
 };
