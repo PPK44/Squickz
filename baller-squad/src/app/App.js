@@ -7,7 +7,7 @@ import { PageWrapper } from "./components/PageWrapper";
 import { CenterLayout } from "./components/CenterLayout";
 
 export const App = () => {
-  const [userInfo, setUserInfo] = useState(null);
+  const [userInfo, setUserInfo] = useState({userName: "", isLoggedIn: false});
   const providerValue = useMemo(
     () => ({ userInfo, setUserInfo }),
     [userInfo, setUserInfo]
