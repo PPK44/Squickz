@@ -89,6 +89,7 @@ export const Play = () => {
       maxClicks: Math.ceil(containerRef.current.offsetHeight / clickHeight),
       gameLength: 0,
     });
+    console.log("GAME DETAILS:",gameDetails)
   }, [clickHeight]);
 
   const toggleTimer = () => {
@@ -160,10 +161,11 @@ export const Play = () => {
         ...gameDetails,
         maxTime: gameDetails.maxTime + 1,
       });
+      // idk why i have to add in the set timer why it doesnt jsut fire off but owell maybe react groups setstates
       setTimer({
         ...timer,
-        time: GAME_TIMES[gameDetails.maxTime]
-      })
+        time: GAME_TIMES[gameDetails.maxTime +1],
+      });
     }
   };
 
@@ -174,12 +176,16 @@ export const Play = () => {
         ...gameDetails,
         maxTime: gameDetails.maxTime - 1,
       });
+      setTimer({
+        ...timer,
+        time: GAME_TIMES[gameDetails.maxTime -1],
+      });
     }
   };
 
   const incrementDifficulty = () => {
-    console.log(DIFFICULTIES.length)
-    console.log(gameDetails.difficulty)
+    console.log(DIFFICULTIES.length);
+    console.log(gameDetails.difficulty);
     if (gameDetails.difficulty < DIFFICULTIES.length - 1) {
       console.log("Incrementing Difficulty");
       setGameDetails({
