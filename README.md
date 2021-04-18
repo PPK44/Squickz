@@ -56,6 +56,8 @@ _**Note:**  This project will be treated as a final exam.  Accordingly, the inst
 ### Independent Study
 Each group will complete an independent study of an additional topic, not covered in any of the lectures or labs.  The topic is up to you, so you can choose something that you intend to integrate into your project.  You can use Node.js packages, client-side tools, data stores, web services, or some other tools.  This part of the project will be worth 5 marks.  Include a link to a Google Slides or a PowerPoint/PDF file, with 4-6 slides on how this package/tool works, in your `README.md` file.
 
+Here's the link the react slides! 
+[a link](https://docs.google.com/presentation/d/1tB-riHWara29EU05rs6d01NwKIPieM4XUAjVN2QNYkI/edit?usp=sharing)
 | Requirement                        | Weight |
 | :--------------------------------- | ------:|
 | Presentation file                  |  2.0   |
