@@ -10,6 +10,7 @@ export const Routes = () => {
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/hiScores" component={HighScores} />
+      <Route exact path="/rules" component={Rules} />
       <Route exact path="/play" component={Play} />
     </Switch>
   );
