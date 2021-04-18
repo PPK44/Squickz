@@ -5,8 +5,7 @@ import { GameModal } from "../components/Game/GameModal";
 import { SpinningTimer } from "../components/Timer/SpinningTimer";
 import { GameDetails } from "../components/Game/GameDetails";
 import { Incrementer } from "../components/Game/Incrementer";
-
-const TIME_TO_PLAY = 15;
+import { GAME_TIMES, DIFFICULTIES } from "../constants";
 
 export const Play = () => {
   const boxRef = useRef();
@@ -18,13 +17,15 @@ export const Play = () => {
     hasWon: false,
     maxClicks: 0,
     gameLength: 0,
+    difficulty: 0,
+    maxTime: 0,
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [wiggleEffect, setWiggleEffect] = useState(false);
 
   const [timer, setTimer] = useState({
     on: false,
-    time: TIME_TO_PLAY,
+    time: GAME_TIMES[0],
   });
 
   useLayoutEffect(() => {
@@ -51,8 +52,9 @@ export const Play = () => {
           on: false,
         });
         setGameDetails({
+          ...gameDetails,
           hasWon: false,
-          gameLength: TIME_TO_PLAY,
+          gameLength: GAME_TIMES[gameDetails.maxTime],
         });
         setIsModalOpen(true);
       }
@@ -62,7 +64,7 @@ export const Play = () => {
     return () => {
       clearInterval(interval);
     };
-  }, [timer, setTimer]);
+  }, [timer, setTimer, gameDetails]);
 
   // Depending on screen height increment the box by a certain amount
   // Kinda scales a lilbit with smaller screen and bigger screen sizes
@@ -82,6 +84,7 @@ export const Play = () => {
   // calc max clicks
   useEffect(() => {
     setGameDetails({
+      ...gameDetails,
       hasWon: false,
       maxClicks: Math.ceil(containerRef.current.offsetHeight / clickHeight),
       gameLength: 0,
@@ -98,7 +101,7 @@ export const Play = () => {
   const resetTimer = () => {
     setTimer({
       on: false,
-      time: TIME_TO_PLAY,
+      time: GAME_TIMES[gameDetails.maxTime],
     });
   };
 
@@ -114,7 +117,7 @@ export const Play = () => {
       setGameDetails({
         ...gameDetails,
         hasWon: true,
-        gameLength: TIME_TO_PLAY - timer.time,
+        gameLength: GAME_TIMES[gameDetails.maxTime] - timer.time,
       });
       setIsModalOpen(true);
     } else {
@@ -127,7 +130,7 @@ export const Play = () => {
     setTimer({
       ...timer,
       on: true,
-      time: TIME_TO_PLAY,
+      time: GAME_TIMES[gameDetails.maxTime],
     });
   };
 
@@ -150,12 +153,58 @@ export const Play = () => {
     resetGame();
   };
 
+  const incrementTime = () => {
+    if (gameDetails.maxTime < GAME_TIMES.length - 1) {
+      console.log("Incrementing Time");
+      setGameDetails({
+        ...gameDetails,
+        maxTime: gameDetails.maxTime + 1,
+      });
+      setTimer({
+        ...timer,
+        time: GAME_TIMES[gameDetails.maxTime]
+      })
+    }
+  };
+
+  const decrementTime = () => {
+    if (gameDetails.maxTime > 0) {
+      console.log("Decrementing Time");
+      setGameDetails({
+        ...gameDetails,
+        maxTime: gameDetails.maxTime - 1,
+      });
+    }
+  };
+
+  const incrementDifficulty = () => {
+    console.log(DIFFICULTIES.length)
+    console.log(gameDetails.difficulty)
+    if (gameDetails.difficulty < DIFFICULTIES.length - 1) {
+      console.log("Incrementing Difficulty");
+      setGameDetails({
+        ...gameDetails,
+        difficulty: gameDetails.difficulty + 1,
+      });
+    }
+  };
+
+  const decrementDifficulty = () => {
+    if (gameDetails.difficulty > 0) {
+      console.log("Decrementing Difficulty");
+      setGameDetails({
+        ...gameDetails,
+        difficulty: gameDetails.difficulty - 1,
+      });
+    }
+  };
+
   const style = {
     height: currentHeight,
   };
 
   return (
-    <div className={`w-full h-full p-5`}>
+    <div className={`w-full h-full p-5 select-none`}>
       <div
         ref={containerRef}
         className={`grid grid-cols-3 gap-4 h-full w-full`}
@@ -167,7 +216,7 @@ export const Play = () => {
           <GameDetails
             clicks={clicks}
             maxClicks={gameDetails.maxClicks}
-            increment={clickHeight}
+            difficulty={DIFFICULTIES[gameDetails.difficulty].difficulty}
           />
         </div>
         <div className={`flex flex-col-reverse flex1`}>
@@ -183,11 +232,21 @@ export const Play = () => {
           className={`flex flex-col flex1 bg-simple-gray-29 rounded-lg p-2 lg:p-5 justify-between space-y-16`}
         >
           <div className={`flex flex-col flex1 space-y-10`}>
-            <Incrementer color={`blue`} text={`Time`} value={TIME_TO_PLAY} />
             <Incrementer
-              color={`pink`}
-              text={`Increment`}
-              value={TIME_TO_PLAY}
+              color={`blue`}
+              text={`Time`}
+              value={GAME_TIMES[gameDetails.maxTime]}
+              incrementUp={() => incrementTime()}
+              incrementDown={() => decrementTime()}
+              changable={!timer.on}
+            />
+            <Incrementer
+              color={`blue`}
+              text={`Difficulty`}
+              value={DIFFICULTIES[gameDetails.difficulty].difficulty}
+              incrementUp={() => incrementDifficulty()}
+              incrementDown={() => decrementDifficulty()}
+              changable={!timer.on}
             />
           </div>
           {timer.on === true ? (
