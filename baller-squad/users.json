@@ -1,0 +1,63 @@
+[
+    {
+        "email": "test@testing.com",
+        "user": "test",
+        "password": "test"
+    },
+    {
+        "email": "kenpusucks@testing.com",
+        "user": "kenpusucks",
+        "password": "test"
+    }
+]
+
+[
+    {
+        "user": "test",
+        "score": 50,
+        "level": "hell",
+        "time": "15"
+    },
+    {
+        "user": "test",
+        "score": 90,
+        "level": "hell",
+        "time": "10"
+    },
+    {
+        "user": "test",
+        "score": 50,
+        "level": "medium",
+        "time": "15"
+    },
+    {
+        "user": "test",
+        "score": 90,
+        "level": "easy",
+        "time": "10"
+    },
+    {
+        "user": "test",
+        "score": 50,
+        "level": "easy",
+        "time": "15"
+    },
+    {
+        "user": "test",
+        "score": 90,
+        "level": "medium",
+        "time": "10"
+    },
+    {
+        "user": "test",
+        "score": 21,
+        "level": "easy",
+        "time": "20"
+    },
+    {
+        "user": "test",
+        "score": 90,
+        "level": "hell",
+        "time": "20"
+    },
+]

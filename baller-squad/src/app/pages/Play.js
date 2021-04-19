@@ -2,8 +2,10 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { GameButton } from "../components/Game/GameButton";
 import { GameModal } from "../components/Game/GameModal";
-
-const TIME_TO_PLAY = 15;
+import { SpinningTimer } from "../components/Timer/SpinningTimer";
+import { GameDetails } from "../components/Game/GameDetails";
+import { Incrementer } from "../components/Game/Incrementer";
+import { GAME_TIMES, DIFFICULTIES } from "../constants";
 
 export const Play = () => {
   const boxRef = useRef();
@@ -13,23 +15,26 @@ export const Play = () => {
   const [currentHeight, setCurrentHeight] = useState(1);
   const [gameDetails, setGameDetails] = useState({
     hasWon: false,
+    maxClicks: 0,
     gameLength: 0,
+    difficulty: 0,
+    maxTime: 0,
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [wiggleEffect, setWiggleEffect] = useState(false);
 
   const [timer, setTimer] = useState({
     on: false,
-    time: TIME_TO_PLAY,
+    time: GAME_TIMES[0],
   });
 
   useLayoutEffect(() => {
     if (boxRef.current) {
       setCurrentHeight(boxRef.current.offsetHeight);
-      console.log("Height:", boxRef.current.offsetHeight);
     }
   }, []);
 
+  // set up the timer
   useEffect(() => {
     let interval = null;
     if (timer.on) {
@@ -39,16 +44,17 @@ export const Play = () => {
           time: timer.time - 1,
         });
       }, 1000);
+      // timer is over
       if (timer.time === 0) {
-        console.log("Player lost, time's up!");
         clearInterval(interval);
         setTimer({
           ...timer,
           on: false,
         });
         setGameDetails({
+          ...gameDetails,
           hasWon: false,
-          gameLength: TIME_TO_PLAY,
+          gameLength: GAME_TIMES[gameDetails.maxTime],
         });
         setIsModalOpen(true);
       }
@@ -58,25 +64,38 @@ export const Play = () => {
     return () => {
       clearInterval(interval);
     };
-  }, [timer, setTimer]);
+  }, [timer, setTimer, gameDetails]);
 
-  // Depending on screen height increment the box by a certain amount
-  // Kinda scales a lilbit with smaller screen and bigger screen sizes
+  // set how much the box should be incremented with each click
   useEffect(() => {
-    const { innerHeight: height } = window;
-    if (height <= 650) {
-      setClickHeight(1);
-    } else if (height <= 900) {
-      setClickHeight(2);
-    } else if (height <= 1500) {
-      setClickHeight(15);
-    } else {
-      setClickHeight(10);
-    }
-  }, []);
+    const height = containerRef.current.offsetHeight
+    const numClicks = DIFFICULTIES[gameDetails.difficulty].value
+    console.log("Height:",height )
+    console.log("swag:",height / numClicks)
+    setClickHeight((height/numClicks))
+    // if (height <= 650) {
+    //   setClickHeight(1 * DIFFICULTIES[gameDetails.difficulty].value);
+    // } else if (height <= 900) {
+    //   setClickHeight(4 * DIFFICULTIES[gameDetails.difficulty].value);
+    // } else if (height <= 1500) {
+    //   setClickHeight(7 * DIFFICULTIES[gameDetails.difficulty].value);
+    // } else {
+    //   setClickHeight(10 * DIFFICULTIES[gameDetails.difficulty].value);
+    // }
+  }, [gameDetails.difficulty]);
+
+  // calc max clicks
+  useEffect(() => {
+    setGameDetails({
+      ...gameDetails,
+      hasWon: false,
+      maxClicks: DIFFICULTIES[gameDetails.difficulty].value,
+      gameLength: 0,
+    });
+    // eslint error but idk if i add dependency then it forever updates so wut ever yolo
+  }, [clickHeight]);
 
   const toggleTimer = () => {
-    console.log("Toggling timer");
     setTimer({
       ...timer,
       on: !timer.on,
@@ -84,10 +103,9 @@ export const Play = () => {
   };
 
   const resetTimer = () => {
-    console.log("Resetting timer");
     setTimer({
       on: false,
-      time: TIME_TO_PLAY,
+      time: GAME_TIMES[gameDetails.maxTime],
     });
   };
 
@@ -103,7 +121,7 @@ export const Play = () => {
       setGameDetails({
         ...gameDetails,
         hasWon: true,
-        gameLength: TIME_TO_PLAY - timer.time,
+        gameLength: timer.time,
       });
       setIsModalOpen(true);
     } else {
@@ -116,7 +134,7 @@ export const Play = () => {
     setTimer({
       ...timer,
       on: true,
-      time: TIME_TO_PLAY,
+      time: GAME_TIMES[gameDetails.maxTime],
     });
   };
 
@@ -134,8 +152,56 @@ export const Play = () => {
   const closeModal = async () => {
     setIsModalOpen(false);
     setCurrentHeight(1);
+    // sleep for 500ms to allow modal to close without the data being reset on the modal
     await new Promise((r) => setTimeout(r, 500));
     resetGame();
+  };
+
+  const incrementTime = () => {
+    if (gameDetails.maxTime < GAME_TIMES.length - 1) {
+      setGameDetails({
+        ...gameDetails,
+        maxTime: gameDetails.maxTime + 1,
+      });
+      // idk why i have to add in the set timer why it doesnt jsut fire off but owell maybe react groups setstates
+      setTimer({
+        ...timer,
+        time: GAME_TIMES[gameDetails.maxTime +1],
+      });
+    }
+  };
+
+  const decrementTime = () => {
+    if (gameDetails.maxTime > 0) {
+      setGameDetails({
+        ...gameDetails,
+        maxTime: gameDetails.maxTime - 1,
+      });
+      setTimer({
+        ...timer,
+        time: GAME_TIMES[gameDetails.maxTime -1],
+      });
+    }
+  };
+
+  const incrementDifficulty = () => {
+    console.log(DIFFICULTIES.length);
+    console.log(gameDetails.difficulty);
+    if (gameDetails.difficulty < DIFFICULTIES.length - 1) {
+      setGameDetails({
+        ...gameDetails,
+        difficulty: gameDetails.difficulty + 1,
+      });
+    }
+  };
+
+  const decrementDifficulty = () => {
+    if (gameDetails.difficulty > 0) {
+      setGameDetails({
+        ...gameDetails,
+        difficulty: gameDetails.difficulty - 1,
+      });
+    }
   };
 
   const style = {
@@ -143,15 +209,20 @@ export const Play = () => {
   };
 
   return (
-    <div className={`w-full h-full p-5`}>
+    <div className={`w-full h-full p-5 select-none`}>
       <div
         ref={containerRef}
         className={`grid grid-cols-3 gap-4 h-full w-full`}
       >
-        <div className={`flex flex-col items-left justify-center h-full`}>
-          <p className={`text-3xl`}>My Timer: {timer.time}</p>
-          <p className={`text-3xl`}>Clicks: {clicks}</p>
-          <p className={`text-3m`}>Current Inc: {clickHeight}</p>
+        <div
+          className={`flex flex-col items-center justify-between h-full space-y-16 bg-simple-gray-29 lg:p-5 p-2 rounded-lg`}
+        >
+          <SpinningTimer time={timer.time} started={timer.on} />
+          <GameDetails
+            clicks={clicks}
+            maxClicks={gameDetails.maxClicks}
+            difficulty={DIFFICULTIES[gameDetails.difficulty].difficulty}
+          />
         </div>
         <div className={`flex flex-col-reverse flex1`}>
           <div
@@ -162,9 +233,29 @@ export const Play = () => {
             style={style}
           ></div>
         </div>
-        <div className={`flex flex-col-reverse flex1`}>
+        <div
+          className={`flex flex-col flex1 bg-simple-gray-29 rounded-lg p-2 lg:p-5 justify-between space-y-16`}
+        >
+          <div className={`flex flex-col flex1 space-y-10`}>
+            <Incrementer
+              color={`blue`}
+              text={`Time`}
+              value={GAME_TIMES[gameDetails.maxTime]}
+              incrementUp={() => incrementTime()}
+              incrementDown={() => decrementTime()}
+              changable={!timer.on}
+            />
+            <Incrementer
+              color={`blue`}
+              text={`Difficulty`}
+              value={DIFFICULTIES[gameDetails.difficulty].difficulty}
+              incrementUp={() => incrementDifficulty()}
+              incrementDown={() => decrementDifficulty()}
+              changable={!timer.on}
+            />
+          </div>
           {timer.on === true ? (
-            <div className={`space-y-8 flex flex-col flex1`}>
+            <div className={`space-y-4 flex flex-col flex1 h-full`}>
               <GameButton
                 onClick={() => resetGame()}
                 color="bg-purple-700"

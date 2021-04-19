@@ -1,7 +1,12 @@
-import React from "react";
+import React, {useContext} from "react";
 import { MenuItem } from "./MenuItem";
+import { LoginMenuItem } from "./LoginMenuItem";
+import { UserContext } from "../../userContext";
 
 export const MenuItems = ({ isNavOpen, currentRoute, setCurrentRoute }) => {
+
+  const {userInfo, setUserInfo} = useContext(UserContext);
+
   return (
     <>
       <MenuItem
@@ -25,27 +30,21 @@ export const MenuItems = ({ isNavOpen, currentRoute, setCurrentRoute }) => {
         currentRoute={currentRoute}
         setCurrentRoute={setCurrentRoute}
       />
-      <MenuItem
+      {
+        userInfo.isLoggedIn ? <MenuItem
         link="/hiScores"
-        text="Hi Scores"
+        text="High Scores"
         isNavOpen={isNavOpen}
         currentRoute={currentRoute}
         setCurrentRoute={setCurrentRoute}
-      />
-      <MenuItem
-        link="/login"
-        text="Login"
-        isNavOpen={isNavOpen}
-        currentRoute={currentRoute}
+      /> : null}
+      <LoginMenuItem 
+        text="Login" 
         setCurrentRoute={setCurrentRoute}
+        isNavOpen={isNavOpen}  
       />
-      <MenuItem
-        link="/register"
-        text="Register"
-        isNavOpen={isNavOpen}
-        currentRoute={currentRoute}
-        setCurrentRoute={setCurrentRoute}
-      />
+      
+      
     </>
   );
 };
