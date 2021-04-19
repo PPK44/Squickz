@@ -1,8 +1,11 @@
-import React from "react";
+import React, {useContext} from "react";
 import { MenuItem } from "./MenuItem";
 import { LoginMenuItem } from "./LoginMenuItem";
+import { UserContext } from "../../userContext";
 
 export const MenuItems = ({ isNavOpen, currentRoute, setCurrentRoute }) => {
+
+  const {userInfo, setUserInfo} = useContext(UserContext);
 
   return (
     <>
@@ -27,16 +30,19 @@ export const MenuItems = ({ isNavOpen, currentRoute, setCurrentRoute }) => {
         currentRoute={currentRoute}
         setCurrentRoute={setCurrentRoute}
       />
-      <MenuItem
+      {
+        userInfo.isLoggedIn ? <MenuItem
         link="/hiScores"
-        text="Hi Scores"
+        text="High Scores"
         isNavOpen={isNavOpen}
         currentRoute={currentRoute}
         setCurrentRoute={setCurrentRoute}
+      /> : null}
+      <LoginMenuItem 
+        text="Login" 
+        setCurrentRoute={setCurrentRoute}
+        isNavOpen={isNavOpen}  
       />
-        <LoginMenuItem text="Login" setCurrentRoute={setCurrentRoute}>
-
-        </LoginMenuItem>
       
       
     </>
