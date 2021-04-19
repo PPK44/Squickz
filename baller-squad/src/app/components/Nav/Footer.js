@@ -13,11 +13,19 @@ export const Footer = () => {
         <div className="text-xl text-center">Kanye: "{loading ? "loading..." : data}"</div>
         <div className="flex flex-row flex1 justify-between">
             <div className="flex">Poop</div>
-            <div className="flex flex-row-reverse">
-              <img src="https://img.icons8.com/fluent/32/000000/twitter.png"/>    
-              <img src="https://img.icons8.com/fluent/32/000000/facebook-new.png"/>
-              <img src="https://img.icons8.com/fluent/32/000000/linkedin.png"/>
-              <img src="https://img.icons8.com/fluent/32/000000/instagram-new.png"/>
+            <div className="flex flex-row-reverse gap-4">
+              <a href="#">
+                <img src="https://img.icons8.com/fluent/32/000000/twitter.png"/>    
+              </a>
+              <a href="#">
+                <img src="https://img.icons8.com/fluent/32/000000/facebook-new.png"/>
+              </a>
+              <a href="#">
+                <img src="https://img.icons8.com/fluent/32/000000/linkedin.png"/>
+              </a>
+              <a href="#">
+                <img src="https://img.icons8.com/fluent/32/000000/instagram-new.png"/>
+              </a>
             </div>
           </div>
        </footer>
