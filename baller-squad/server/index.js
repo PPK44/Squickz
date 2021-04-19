@@ -30,6 +30,50 @@ app.get("/getHighScores", (req, res) => {
   });
 })
 
+app.get("/getEasyHighScores", (req, res) => {
+  console.log(req.query.username + "hi")
+  model.Highscore.find({level: "Easy"}).then(function(list){
+    if(list.length > 0){
+      res.send(list);
+    }else{
+      console.log("ERROR! no results on that data")
+    }
+  });
+})
+
+app.get("/getMediumHighScores", (req, res) => {
+  console.log(req.query.username + "hi")
+  model.Highscore.find({level: "Medium"}).then(function(list){
+    if(list.length > 0){
+      res.send(list);
+    }else{
+      console.log("ERROR! no results on that data")
+    }
+  });
+})
+
+app.get("/getHardHighScores", (req, res) => {
+  console.log(req.query.username + "hi")
+  model.Highscore.find({level: "Hard"}).then(function(list){
+    if(list.length > 0){
+      res.send(list);
+    }else{
+      console.log("ERROR! no results on that data")
+    }
+  });
+})
+
+app.get("/getHellHighScores", (req, res) => {
+  console.log(req.query.username + "hi")
+  model.Highscore.find({level: "Hell"}).then(function(list){
+    if(list.length > 0){
+      res.send(list);
+    }else{
+      console.log("ERROR! no results on that data")
+    }
+  });
+})
+
 app.post("/registerUser", (req, res) => {
   model.User.create({user: req.body.userName, email: req.body.email, password: req.body.passwd}, function(err){
     if (err) {

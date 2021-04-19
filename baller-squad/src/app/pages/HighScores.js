@@ -14,6 +14,17 @@ export const HighScores = () => {
     getHighScoreData();
   }, [data])
 
+  const getAllHighScoreData = () => {
+    fetch(`http://localhost:3000/getEasyHighScores`)
+    .then((res) => res.json())
+    .then(res =>{
+      console.log(res)
+      // First sort by Time (3)
+      // then sort by difficulty (4)
+      // 12 charts?
+    });
+  }
+
   const getHighScoreData = () => {
     fetch(`http://localhost:3000/getHighScores?username=${userInfo.userName}`)
     .then((res) => res.json())
@@ -26,6 +37,7 @@ export const HighScores = () => {
         }else if(element.time === "20"){
           time20.push(element);
         }
+        // If I want to seperate by level, foreach element.level === "hell", pretty much above
       });
       const top210 = getTopN(time10, "score", 2);
       const top215 = getTopN(time15, "score", 2);
@@ -117,11 +129,37 @@ export const HighScores = () => {
 
   return (
     <div className={`w-full h-full p-5 text-white`}>
+      <div class="flex flex-row items-center p-5 justify-around">
+        <button className="box-border h-32 w-32 p-4 border-pink-500 border-4 m4 rounded-lg"> 
+            Personal high scores
+        </button>
+        <button className="box-border h-32 w-32 border-pink-500 border-4 p-4 m4 rounded-lg"
+          onClick={getAllHighScoreData}
+        >
+          Top easy high scores
+        </button>
+        <button className="box-border h-32 w-32 border-pink-500 border-4 p-4 m4 rounded-lg"
+          onClick={getAllHighScoreData}
+        >
+          Top Medium high scores
+        </button>
+
+        <button className="box-border h-32 w-32 border-pink-500 border-4 p-4 m4 rounded-lg"
+          onClick={getAllHighScoreData}
+        >
+          Top Hard high scores
+        </button>
+
+        <button className="box-border h-32 w-32 border-pink-500 border-4 p-4 m4 rounded-lg"
+          onClick={getAllHighScoreData}
+        >
+          Top Hell high scores
+        </button>
+      </div>
       <div className={`grid grid-cols-3 gap-4 h-full w-full text-white`}>
       <div id="graph" classsName="flex flex-col items-left justify-center h-full">
       </div>
       <div id="graph1" classsName="flex flex-col items-left justify-center h-full">
-
       </div>
       <div id="graph2" classsName="flex flex-col items-left justify-center h-full">
 
