@@ -1,8 +1,11 @@
-import React from "react";
+import React, {useContext} from "react";
 import { MenuItem } from "./MenuItem";
 import { LoginMenuItem } from "./LoginMenuItem";
+import { UserContext } from "../../userContext";
 
 export const MenuItems = ({ isNavOpen, currentRoute, setCurrentRoute }) => {
+
+  const {userInfo, setUserInfo} = useContext(UserContext);
 
   return (
     <>
