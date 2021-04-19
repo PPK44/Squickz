@@ -134,7 +134,7 @@ export const HighScores = () => {
             Personal high scores
         </button>
         <button className="box-border h-32 w-32 border-pink-500 border-4 p-4 m4 rounded-lg"
-          onClick={getAllHighScoreData}
+          onClick={dummyFunction}
         >
           Top easy high scores
         </button>
@@ -168,3 +168,7 @@ export const HighScores = () => {
     </div>
   )
 };
+
+function dummyFunction(){
+  console.log("Poop")
+}
