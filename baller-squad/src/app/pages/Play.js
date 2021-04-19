@@ -66,19 +66,22 @@ export const Play = () => {
     };
   }, [timer, setTimer, gameDetails]);
 
-  // Depending on screen height increment the box by a certain amount
-  // Kinda scales a lilbit with smaller screen and bigger screen sizes
+  // set how much the box should be incremented with each click
   useEffect(() => {
-    const { innerHeight: height } = window;
-    if (height <= 650) {
-      setClickHeight(1 * DIFFICULTIES[gameDetails.difficulty].value);
-    } else if (height <= 900) {
-      setClickHeight(4 * DIFFICULTIES[gameDetails.difficulty].value);
-    } else if (height <= 1500) {
-      setClickHeight(7 * DIFFICULTIES[gameDetails.difficulty].value);
-    } else {
-      setClickHeight(10 * DIFFICULTIES[gameDetails.difficulty].value);
-    }
+    const height = containerRef.current.offsetHeight
+    const numClicks = DIFFICULTIES[gameDetails.difficulty].value
+    console.log("Height:",height )
+    console.log("swag:",height / numClicks)
+    setClickHeight((height/numClicks))
+    // if (height <= 650) {
+    //   setClickHeight(1 * DIFFICULTIES[gameDetails.difficulty].value);
+    // } else if (height <= 900) {
+    //   setClickHeight(4 * DIFFICULTIES[gameDetails.difficulty].value);
+    // } else if (height <= 1500) {
+    //   setClickHeight(7 * DIFFICULTIES[gameDetails.difficulty].value);
+    // } else {
+    //   setClickHeight(10 * DIFFICULTIES[gameDetails.difficulty].value);
+    // }
   }, [gameDetails.difficulty]);
 
   // calc max clicks
@@ -86,7 +89,7 @@ export const Play = () => {
     setGameDetails({
       ...gameDetails,
       hasWon: false,
-      maxClicks: Math.ceil(containerRef.current.offsetHeight / clickHeight),
+      maxClicks: DIFFICULTIES[gameDetails.difficulty].value,
       gameLength: 0,
     });
     // eslint error but idk if i add dependency then it forever updates so wut ever yolo
@@ -252,7 +255,7 @@ export const Play = () => {
             />
           </div>
           {timer.on === true ? (
-            <div className={`space-y-8 flex flex-col flex1`}>
+            <div className={`space-y-4 flex flex-col flex1 h-full`}>
               <GameButton
                 onClick={() => resetGame()}
                 color="bg-purple-700"

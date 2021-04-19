@@ -20,15 +20,15 @@ export const Incrementer = ({
         <ArrowUpward />
       </div>
       <div
-        className={`w-full h-full flex lg:flex-row flex-col flex1 text-center items-center justify-center lg:justify-between  p-2 lg:pr-5`}
+        className={`w-full h-full flex lg:flex-row flex-col flex1 text-center items-center justify-center lg:justify-between p-2 lg:pr-5`}
       >
         <div
-          className={`lg:p-5 p-2 lg:text-3xl w-1/2 text-lg lg:text-left text-center text-${color}-500`}
+          className={`lg:p-5 p-2 lg:text-3xl w-full text-lg lg:text-left text-center text-${color}-500`}
         >
           {text}
         </div>
         <div
-          className={`lg:p-5 p-2 lg:text-2xl w-1/2 text-md bg-simple-gray-30 rounded-lg text-${color}-400 text-center`}
+          className={`lg:p-5 p-2 lg:text-2xl w-full text-md bg-simple-gray-30 rounded-lg text-${color}-400 text-center`}
         >
           {value}
         </div>
