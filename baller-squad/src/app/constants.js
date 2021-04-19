@@ -1,19 +1,19 @@
 export const DIFFICULTIES = [
   {
     difficulty: "Easy",
-    value: 15,
+    value: 50,
   },
   {
     difficulty: "Medium",
-    value: 8,
+    value: 100,
   },
   {
     difficulty: "Hard",
-    value: 4,
+    value: 150,
   },
   {
     difficulty: "Hell",
-    value: 1,
+    value: 250,
   },
 ];
 
