@@ -12,6 +12,7 @@ app.get("/getUsers", (req, res) => {
   console.log(req.query.username)
   model.User.find({user: req.query.username}).then(function(list){
     if(list.length > 0){
+      console.log(list)
       res.send(list);
     }else{
       console.log("ERROR! no results on that data")

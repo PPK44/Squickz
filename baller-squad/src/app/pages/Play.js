@@ -73,15 +73,6 @@ export const Play = () => {
     console.log("Height:",height )
     console.log("swag:",height / numClicks)
     setClickHeight((height/numClicks))
-    // if (height <= 650) {
-    //   setClickHeight(1 * DIFFICULTIES[gameDetails.difficulty].value);
-    // } else if (height <= 900) {
-    //   setClickHeight(4 * DIFFICULTIES[gameDetails.difficulty].value);
-    // } else if (height <= 1500) {
-    //   setClickHeight(7 * DIFFICULTIES[gameDetails.difficulty].value);
-    // } else {
-    //   setClickHeight(10 * DIFFICULTIES[gameDetails.difficulty].value);
-    // }
   }, [gameDetails.difficulty]);
 
   // calc max clicks

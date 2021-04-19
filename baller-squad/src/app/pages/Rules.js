@@ -1,5 +1,6 @@
-// Home page for app
+// Rule page
 import React from "react";
+
 import { TopNavModule } from "./TopNav";
 import { Footer } from "../components/Nav/Footer";
 
