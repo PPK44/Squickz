@@ -11,7 +11,7 @@ export const useFetch = url => {
                 // console.log(y);
             setState({data: y, loading: false});
         }); 
-    }, [url]);
+    }, []);
 
     return state;
 };
