@@ -1,15 +1,15 @@
 export const DIFFICULTIES = [
   {
     difficulty: "Easy",
-    value: 15,
+    value: 10,
   },
   {
     difficulty: "Medium",
-    value: 8,
+    value: 6,
   },
   {
     difficulty: "Hard",
-    value: 4,
+    value: 2,
   },
   {
     difficulty: "Hell",
