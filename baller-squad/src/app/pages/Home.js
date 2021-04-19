@@ -4,7 +4,8 @@ import { Footer } from "../components/Nav/Footer";
 
 export const Home = () => {
   return (
-    <div className="flex flex-col h-full relative">
+    <>
+    <div className="flex flex-col h-full">
       <div className="w-full h-full p-5">
         <div className="bg-simple-gray-29 rounded-lg divide-y-4 divide-blue-500">
         <div className="text-5xl text-center p-4">What is Squickz?</div>
@@ -24,7 +25,8 @@ export const Home = () => {
           </div>
         </div>
       </div>
-      <Footer/>
     </div>
+    <Footer/>
+    </>
   )
 };
