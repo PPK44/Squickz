@@ -22,6 +22,7 @@ const [isOpen, setDialogOpen] = useState(false);
   const logout = () => {
     setCurrentRoute("/");
     const data = {userName: "", isLoggedIn: false};
+    localStorage.removeItem('user')
     setUserInfo(data);
   }
 
