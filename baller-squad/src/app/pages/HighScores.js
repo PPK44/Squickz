@@ -2,11 +2,7 @@
 import React, {useEffect, useRef,useState, useContext} from "react";
 import * as d3 from "d3";
 import { UserContext } from "../userContext";
-const data = [{"grade":'A', "frequency": 0.5},
-  {"grade":'B', "frequency": 0.7},
-  {"grade": 'C', "frequency": 0.4},
-  {"grade":'D', "frequency": 0.3},
-  {"grade": 'F', "frequency": 0.2}]
+const data = "never";
 
 export const HighScores = () => {
 
@@ -16,10 +12,7 @@ export const HighScores = () => {
   const time20 = [];
   useEffect(() => {
     getHighScoreData();
-    // drawChart(data, "graph");
-    // drawChart(data, "graph1");
-    // drawChart(data, "graph2");
-  }, [time10])
+  }, [data])
 
   const getHighScoreData = () => {
     fetch(`http://localhost:3000/getHighScores?username=${userInfo.userName}`)
@@ -34,13 +27,29 @@ export const HighScores = () => {
           time20.push(element);
         }
       });
-      drawChart(time10, "graph", time10[0].time);
-      drawChart(time15, "graph1", time15[0].time);
-      drawChart(time20, "graph2", time20[0].time);
-        
+      const top210 = getTopN(time10, "score", 2);
+      const top215 = getTopN(time15, "score", 2);
+      const top220 = getTopN(time20, "score", 2);
+      drawChart(top210, "graph", time10[0].time);
+      drawChart(top215, "graph1", time15[0].time);
+      drawChart(top220, "graph2", time20[0].time);
    
     });
   }
+  //reference: https://stackoverflow.com/questions/22949597/getting-max-values-in-json-array
+  const getTopN = (arr, prop, n) => {
+    // clone before sorting, to preserve the original array
+    const clone = arr.slice(0); 
+
+    // sort descending
+    clone.sort(function(x, y) {
+        if (x[prop] == y[prop]) return 0;
+        else if (parseInt(x[prop]) < parseInt(y[prop])) return 1;
+        else return -1;
+    });
+
+    return clone.slice(0, n || 1);
+}
 
   
 
