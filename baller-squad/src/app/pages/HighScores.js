@@ -1,6 +1,7 @@
 // Home page for app
 import React, {useEffect, useState, useContext} from "react";
 import * as d3 from "d3";
+import { UserContext } from "../userContext";
 const data = [{"grade":'A', "frequency": 0.5},
   {"grade":'B', "frequency": 0.7},
   {"grade": 'C', "frequency": 0.4},
@@ -8,13 +9,25 @@ const data = [{"grade":'A', "frequency": 0.5},
   {"grade": 'F', "frequency": 0.2}]
 
 export const HighScores = () => {
+
+  const {userInfo, setUserInfo} = useContext(UserContext);
   
-  useEffect( () => {
-    
+  useEffect(() => {
+    getHighScoreData();
     drawChart(data, "graph");
     drawChart(data, "graph1");
     drawChart(data, "graph2");
   }, [data])
+
+  const getHighScoreData = () => {
+    console.log(typeof userInfo.userName);
+    fetch(`http://localhost:3000/getHighScores?username=${userInfo.userName}`)
+    .then((res) => res.json())
+    .then(res =>{
+        console.log(res);
+   
+    });
+  }
 
   
 

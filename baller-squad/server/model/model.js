@@ -25,5 +25,15 @@ let userSchema = new Schema({
     collection: 'users'
 });
 
+let highscoreSchema = new Schema({
+    user: String,
+    score: Number,
+    level: String,
+    time: String
+}, {
+    collection: 'highscores'
+});
+
 module.exports.User = mongoose.model('User', userSchema);
+module.exports.Highscore = mongoose.model('Highscore', highscoreSchema);
 
