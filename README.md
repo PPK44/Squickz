@@ -9,7 +9,7 @@ Before you submit your project, modify the following table to include everyone's
 | Henry Zheng                | HenryZheng1998        |
 
 ## How to run our Application
-To run this, you will need to use 2 `command prompts`.  Both will be open in `./baller-squad`.  In the first command prompt run `npm i` to install all the dependencies.  After this is completed, start the server by entering the command `node server` in the other command prompt open in `./baller-squad`.  After the server is running, start the website by typing in `npm start` or `yarn start` if you have yarn installed.  This command should be run in the command prompt open in `./baller-squad`.
+To run this, you will need to use 2 `command prompts`.  Both will be open in `./baller-squad`.  In the first command prompt run `npm i` to install all the dependencies.  After this is completed, start the server by entering the command `node server`.  After the server is running, start the website by typing in `npm start` or `yarn start` if you have yarn installed, this command should be run in the other command prompt open in `./baller-squad`.
 
 A user to login to with current data is a username of: `test` and password of: `test`
 
