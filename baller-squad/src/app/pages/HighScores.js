@@ -118,7 +118,7 @@ export const HighScores = () => {
           if (hell.length !== 0) {
             top10.push(getTopN2(hell, "score", 1));
           }
-          drawChart(top10, "graph", time10[0].time);
+          drawChart(top10, "graph", time10[0].time, 0);
         }
         medium = [];
         easy = [];
@@ -149,7 +149,7 @@ export const HighScores = () => {
           if (hell.length !== 0) {
             top15.push(getTopN2(hell, "score", 1));
           }
-          drawChart(top15, "graph1", time15[0].time);
+          drawChart(top15, "graph1", time15[0].time, 0);
         }
         medium = [];
         easy = [];
@@ -180,7 +180,7 @@ export const HighScores = () => {
           if (hell.length !== 0) {
             top20.push(getTopN2(hell, "score", 1));
           }
-          drawChart(top20, "graph2", time20[0].time);
+          drawChart(top20, "graph2", time20[0].time, 0);
         }
       });
   };
@@ -298,6 +298,7 @@ export const HighScores = () => {
     } 
 
   return (
+   
    <div
       className={`w-full h-full p-5 flex flex-col flex1 justify-between items-center text-white`}
     >
@@ -334,6 +335,11 @@ export const HighScores = () => {
           Top Hell high scores
         </button>
       </div>
+    
+    
+      <div
+        className={`flex xl:flex-row flex-col space-y-1 flex1 h-full w-full xl:justify-evenly text-white items-center justify-start`}
+      >
       <div
           id="graph"
           classsName="flex flex-col flex1 items-left justify-center h-full"
@@ -346,8 +352,10 @@ export const HighScores = () => {
           id="graph2"
           classsName="flex flex-col items-left justify-center h-full"
         ></div>
-      </div>
-    </div>
+  </div>
+  </div>
+
+      
     );
 };
 
