@@ -32,6 +32,11 @@ export const App = () => {
     };
   }, []);
 
+  window.addEventListener("beforeunload", (ev) => {
+    ev.preventDefault();
+    localStorage.removeItem("page");
+  });
+
   return (
     <Router>
       <UserContext.Provider value={providerValue}>
