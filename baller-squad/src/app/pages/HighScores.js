@@ -236,7 +236,7 @@ export const HighScores = () => {
   };
 
   // D3 code to draw the charts
-  // Flag - 0 = difficulty, 1 = users for x axis
+  // Flag - 0 = difficulty for x-axis, 1 = users for x-axis
   const drawChart = (data, graph, time, flag) => {
     let height, width;
     const margin = 70;
