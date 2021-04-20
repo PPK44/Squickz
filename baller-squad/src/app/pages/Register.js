@@ -1,5 +1,5 @@
 // Home page for app
-import { useRef, useContext } from "react";
+import { useRef, useState, useContext } from "react";
 import { makeStyles, } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -13,9 +13,10 @@ export const Register = ({open, onClose}) =>{
     const passRef = useRef('');
     const emailRef = useRef('');
     const {userInfo, setUserInfo} = useContext(UserContext);
-    
+    const [error, setError] = useState("");
     
     const formSubmit = () => {
+        if(userRef.current.value !== "" && passRef.current.value !== "" && emailRef.current.value !== ""){
         fetch(`http://localhost:3000/registerUser`,{
             method: 'post',
             headers: {
@@ -28,8 +29,11 @@ export const Register = ({open, onClose}) =>{
             console.log(res.userName);
             const data = {userName: res.userName, isLoggedIn: true};
             setUserInfo(data);
-            
+            onClose();
         });
+        }else {
+            setError("You have to input a username, password and email");
+        }
     }
 
     const useStyles = makeStyles(theme => ({
@@ -147,6 +151,7 @@ export const Register = ({open, onClose}) =>{
                 }}
                 fullWidth
             />
+            <div className={`text-red-500`}>{error}</div>
             </DialogContent>
             <DialogActions>
             <button onClick={formSubmit} className={`bg-purple-500 inset-x-0 bottom-0 rounded p-2 w-full h-12 text-lg hover:bg-purple-600 transition duration-300`} type="submit">

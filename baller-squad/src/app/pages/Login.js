@@ -73,22 +73,22 @@ export const Login = ({ open, onClose }) => {
 
   const formSubmit = () => {
     if(userRef.current.value !== "" && passRef.current.value !== ""){
-    fetch(`http://localhost:3000/getUsers?username=${userRef.current.value}`)
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res.length);
-        if(res.length !== 0){
-          const data = { userName: res[0].user, isLoggedIn: true };
-          setUserInfo(data);
-          localStorage.setItem("user", data.userName);
-          onClose();
-        }else{
-          setError("No records match this username and password");
-        }
-      });
-      
+      fetch(`http://localhost:3000/getUsers?username=${userRef.current.value}`)
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res.length);
+          if(res.length !== 0){
+            const data = { userName: res[0].user, isLoggedIn: true };
+            setUserInfo(data);
+            localStorage.setItem("user", data.userName);
+            onClose();
+          }else{
+            setError("No records match this username and password");
+          }
+        });
     }else{
       setError("You have to input a username or password");
+
     }
     
   };
