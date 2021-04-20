@@ -42,6 +42,7 @@ app.get("/getHighScores", (req, res) => {
   });
 })
 
+
 app.get("/getDifficultyHighScores", (req, res) => {
   console.log(`Attempting to get ${req.query.difficulty} level scores`)
   model.Highscore.find({level: `${req.query.difficulty}`}).then(function(list){
@@ -50,6 +51,15 @@ app.get("/getDifficultyHighScores", (req, res) => {
     }else{
       console.log("ERROR! no results on that data")
       res.send([]);
+
+app.post("/insertHighscore", (req, res) => {
+  model.Highscore.create({user: req.body.userName, score: req.body.score, level: req.body.level, time: req.body.time}, function(err){
+    if (err) {
+      throw err;
+    }else{
+      console.log("inserted successfully");
+      res.send(JSON.stringify({userName: req.body.userName}));
+
     }
   });
 })

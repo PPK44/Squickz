@@ -1,18 +1,18 @@
 // Home page for app
-import React, {useEffect, useRef,useState, useContext} from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import * as d3 from "d3";
 import { UserContext } from "../userContext";
 import { GetAppSharp } from "@material-ui/icons";
 const data = "never";
 
 export const HighScores = () => {
-
-  const {userInfo, setUserInfo} = useContext(UserContext);
+  const { userInfo, setUserInfo } = useContext(UserContext);
   const time10 = [];
   const time15 = [];
   const time20 = [];
   useEffect(() => {
     getHighScoreData();
+
   }, [time10, time15, time20])
 
   // Gets score by difficulty, x axis - users, y axis - score
@@ -74,48 +74,152 @@ export const HighScores = () => {
     });
   }
 
+
   const getHighScoreData = () => {
+    var medium = [];
+    var easy = [];
+    var hard = [];
+    var hell = [];
     fetch(`http://localhost:3000/getHighScores?username=${userInfo.userName}`)
-    .then((res) => res.json())
-    .then(res =>{
-      res.forEach(element => {
-        if(element.time === "10"){
-          time10.push(element);
-        }else if(element.time === "15"){
-          time15.push(element);
-        }else if(element.time === "20"){
-          time20.push(element);
+      .then((res) => res.json())
+      .then((res) => {
+        res.forEach((element) => {
+          if (element.time === "10") {
+            time10.push(element);
+          } else if (element.time === "15") {
+            time15.push(element);
+          } else if (element.time === "20") {
+            time20.push(element);
+          }
+        });
+
+        if (time10.length !== 0) {
+          time10.forEach((el) => {
+            if (el.level === "Medium") {
+              medium.push(el);
+            } else if (el.level === "Easy") {
+              easy.push(el);
+            } else if (el.level === "Hard") {
+              hard.push(el);
+            } else if (el.level === "Hell") {
+              hell.push(el);
+            }
+          });
+          const top10 = [];
+          if (medium.length !== 0) {
+            top10.push(getTopN2(medium, "score", 1));
+          }
+          if (easy.length !== 0) {
+            top10.push(getTopN2(easy, "score", 1));
+          }
+          if (hard.length !== 0) {
+            top10.push(getTopN2(hard, "score", 1));
+          }
+          if (hell.length !== 0) {
+            top10.push(getTopN2(hell, "score", 1));
+          }
+          drawChart(top10, "graph", time10[0].time);
+        }
+        medium = [];
+        easy = [];
+        hard = [];
+        hell = [];
+        if (time15.length !== 0) {
+          time15.forEach((el) => {
+            if (el.level === "Medium") {
+              medium.push(el);
+            } else if (el.level === "Easy") {
+              easy.push(el);
+            } else if (el.level === "Hard") {
+              hard.push(el);
+            } else if (el.level === "Hell") {
+              hell.push(el);
+            }
+          });
+          const top15 = [];
+          if (medium.length !== 0) {
+            top15.push(getTopN2(medium, "score", 1));
+          }
+          if (easy.length !== 0) {
+            top15.push(getTopN2(easy, "score", 1));
+          }
+          if (hard.length !== 0) {
+            top15.push(getTopN2(hard, "score", 1));
+          }
+          if (hell.length !== 0) {
+            top15.push(getTopN2(hell, "score", 1));
+          }
+          drawChart(top15, "graph1", time15[0].time);
+        }
+        medium = [];
+        easy = [];
+        hard = [];
+        hell = [];
+        if (time20.length !== 0) {
+          time20.forEach((el) => {
+            if (el.level === "Medium") {
+              medium.push(el);
+            } else if (el.level === "Easy") {
+              easy.push(el);
+            } else if (el.level === "Hard") {
+              hard.push(el);
+            } else if (el.level === "Hell") {
+              hell.push(el);
+            }
+          });
+          const top20 = [];
+          if (medium.length !== 0) {
+            top20.push(getTopN2(medium, "score", 1));
+          }
+          if (easy.length !== 0) {
+            top20.push(getTopN2(easy, "score", 1));
+          }
+          if (hard.length !== 0) {
+            top20.push(getTopN2(hard, "score", 1));
+          }
+          if (hell.length !== 0) {
+            top20.push(getTopN2(hell, "score", 1));
+          }
+          drawChart(top20, "graph2", time20[0].time);
         }
       });
-      const top210 = getTopN(time10, "score", 2);
-      const top215 = getTopN(time15, "score", 2);
-      const top220 = getTopN(time20, "score", 2);
-      drawChart(top210, "graph", time10[0].time);
-      drawChart(top215, "graph1", time15[0].time);
-      drawChart(top220, "graph2", time20[0].time);
-   
-    });
-  }
+  };
   //reference: https://stackoverflow.com/questions/22949597/getting-max-values-in-json-array
   const getTopN = (arr, prop, n) => {
     // clone before sorting, to preserve the original array
-    const clone = arr.slice(0); 
+    const clone = arr.slice(0);
 
     // sort descending
-    clone.sort(function(x, y) {
-        if (x[prop] == y[prop]) return 0;
-        else if (parseInt(x[prop]) < parseInt(y[prop])) return 1;
-        else return -1;
+    clone.sort(function (x, y) {
+      if (x[prop] === y[prop]) return 0;
+      else if (parseInt(x[prop]) < parseInt(y[prop])) return 1;
+      else return -1;
     });
 
     return clone.slice(0, n || 1);
-}
+  };
+
+
+  const getTopN2 = (arr, prop, n) => {
+    // clone before sorting, to preserve the original array
+    const clone = arr.slice(0);
+
+    // sort descending
+    clone.sort(function (x, y) {
+      if (x[prop] === y[prop]) return 0;
+      else if (parseInt(x[prop]) < parseInt(y[prop])) return 1;
+      else return -1;
+    });
+
+    return clone[0];
+  };
 
   // Flag - 0 = difficulty, 1 = users for x axis
   const drawChart = (data, graph, time, flag) =>{
+    let height, width;
     const margin = 70;
-    const width = 500;
-    const height = 400;
+    width = 500
+    height = 400;
     const chartWidth = width - 2 * margin;
     const chartHeight = height - 2 * margin;
     
@@ -194,8 +298,12 @@ export const HighScores = () => {
     } 
 
   return (
-    <div className={`w-full h-full p-5 text-white`}>
-      <div class="flex flex-row items-center p-5 justify-around">
+   <div
+      className={`w-full h-full p-5 flex flex-col flex1 justify-between items-center text-white`}
+    >
+      <div
+        className={`flex xl:flex-row flex-col space-y-4 flex1 h-full w-full xl:justify-evenly text-white items-center justify-start`}
+      >
         <button className="box-border h-32 w-32 p-4 border-pink-200 border-4 m4 rounded-lg"
           onClick={getHighScoreData}
         >
@@ -226,17 +334,21 @@ export const HighScores = () => {
           Top Hell high scores
         </button>
       </div>
-      <div className={`grid grid-cols-3 gap-4 h-full w-full text-white`}>
-      <div id="graph" classsName="flex flex-col items-left justify-center h-full">
-      </div>
-      <div id="graph1" classsName="flex flex-col items-left justify-center h-full">
-      </div>
-      <div id="graph2" classsName="flex flex-col items-left justify-center h-full">
-
-      </div>
+      <div
+          id="graph"
+          classsName="flex flex-col flex1 items-left justify-center h-full"
+        ></div>
+        <div
+          id="graph1"
+          classsName="flex flex-col items-left justify-center h-full"
+        ></div>
+        <div
+          id="graph2"
+          classsName="flex flex-col items-left justify-center h-full"
+        ></div>
       </div>
     </div>
-  )
+    );
 };
 
 function noDuplicateDifficulty(DuplicateArray){

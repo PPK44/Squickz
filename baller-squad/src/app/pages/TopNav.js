@@ -1,20 +1,25 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect, useContext } from "react";
 import { TopNav } from "../components/Nav/TopNav";
 import { MenuItems } from "../components/Nav/MenuItems";
 import { MobileMenu } from "../components/Nav/MobileMenu";
+import { RouteContext } from "../routeContext";
 
 export const TopNavModule = () => {
   const [isNavOpen, setNavOpen] = useState(false); // state for opening/closing navbar in mobile menu
-  const [currentRoute, setCurrentRoute] = useState("/"); // used for storing current visited route
+  const { route, setRoute } = useContext(RouteContext);
 
   // code taken from https://stackoverflow.com/questions/19014250/rerender-view-on-browser-resize-with-react
-  // This is used because once you pass a threshold of size, if you didn't close the nav 
+  // This is used because once you pass a threshold of size, if you didn't close the nav
   // before your screen size grew you would use the previous mobile menu sizes
   function useWindowSize(boolCheck) {
     const [size, setSize] = useState(0);
     useLayoutEffect(() => {
       function updateSize() {
-        if(window.innerWidth >= 640 && window.innerWidth !== size && boolCheck){
+        if (
+          window.innerWidth >= 640 &&
+          window.innerWidth !== size &&
+          boolCheck
+        ) {
           setSize(window.innerWidth);
           setNavOpen(false);
         }
@@ -26,12 +31,13 @@ export const TopNavModule = () => {
     return size;
   }
 
-  useWindowSize(isNavOpen)
+  useWindowSize(isNavOpen);
 
-  useEffect(() => {
-    console.log("Top Nav re-rendered.  Nav Open = " + isNavOpen)
-  })
-  
+  const setCurrentRoute = (val) =>{
+    setRoute(val);
+    console.log("val:",val)
+    localStorage.setItem('page', val)
+  }
 
   return (
     <nav className={`bg-simple-gray-1e`}>
@@ -41,7 +47,7 @@ export const TopNavModule = () => {
         menuItems={
           <MenuItems
             isNavOpen={isNavOpen}
-            currentRoute={currentRoute}
+            currentRoute={route}
             setCurrentRoute={setCurrentRoute}
           />
         }
@@ -49,11 +55,10 @@ export const TopNavModule = () => {
       {isNavOpen ? (
         <MobileMenu
           isNavOpen={isNavOpen}
-          currentRoute={currentRoute}
+          currentRoute={route}
           setCurrentRoute={setCurrentRoute}
         />
       ) : null}
-      
     </nav>
   );
 };
