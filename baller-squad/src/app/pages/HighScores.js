@@ -15,6 +15,7 @@ export const HighScores = () => {
     getHighScoreData();
   }, [time10, time15, time20])
 
+  // Gets score by difficulty, x axis - users, y axis - score
   const getDifficultyHighScoreData = (difficulty) => {
     console.log(difficulty)
     fetch(`http://localhost:3000/getDifficultyHighScores?difficulty=${difficulty}`)
@@ -34,6 +35,11 @@ export const HighScores = () => {
             Difficultytime20.push(element);
           }
         });
+        // Need to create a function that will have only the highest user's score and to pop others
+        // D3 cannot handle duplicate x values, it will overlap instead, 
+        // according to internet sources there's no way of avoiding this
+
+        console.log(Difficultytime10)
         const topDifficulty210 = getTopN(Difficultytime10, "score", 5);
         const topDifficulty215 = getTopN(Difficultytime15, "score", 5);
         const topDifficulty220 = getTopN(Difficultytime20, "score", 5);
