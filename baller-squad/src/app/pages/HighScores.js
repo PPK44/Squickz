@@ -35,14 +35,20 @@ export const HighScores = () => {
             Difficultytime20.push(element);
           }
         });
-        // Need to create a function that will have only the highest user's score and to pop others
-        // D3 cannot handle duplicate x values, it will overlap instead, 
-        // according to internet sources there's no way of avoiding this
+
+        // To eliminate duplicating users with various scores
+        // Create an empty array
+        // Check if element is in the dictionary
+        // If it is not, insert
+        // If it is in there, check if score is higher or not
+        
 
         console.log(Difficultytime10)
         const topDifficulty210 = getTopN(Difficultytime10, "score", 5);
         const topDifficulty215 = getTopN(Difficultytime15, "score", 5);
         const topDifficulty220 = getTopN(Difficultytime20, "score", 5);
+
+
         console.log(Difficultytime20)
         console.log(topDifficulty220)
         
