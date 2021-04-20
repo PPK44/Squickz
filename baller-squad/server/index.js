@@ -20,6 +20,17 @@ app.get("/getUsers", (req, res) => {
   });
 })
 
+app.get("/getScores", (req, res) => {
+  model.Highscore.find({}).then(function(list){
+    if(list.length > 0){
+      console.log(list)
+      res.send(list);
+    }else{
+      console.log("ERROR! no results on that data")
+    }
+  });
+})
+
 app.get("/getHighScores", (req, res) => {
   console.log(req.query.username + "hi")
   model.Highscore.find({user: req.query.username}).then(function(list){
@@ -31,6 +42,16 @@ app.get("/getHighScores", (req, res) => {
   });
 })
 
+
+app.get("/getDifficultyHighScores", (req, res) => {
+  console.log(`Attempting to get ${req.query.difficulty} level scores`)
+  model.Highscore.find({level: `${req.query.difficulty}`}).then(function(list){
+    if(list.length > 0){
+      res.send(list);
+    }else{
+      console.log("ERROR! no results on that data")
+      res.send([]);
+
 app.post("/insertHighscore", (req, res) => {
   model.Highscore.create({user: req.body.userName, score: req.body.score, level: req.body.level, time: req.body.time}, function(err){
     if (err) {
@@ -38,6 +59,7 @@ app.post("/insertHighscore", (req, res) => {
     }else{
       console.log("inserted successfully");
       res.send(JSON.stringify({userName: req.body.userName}));
+
     }
   });
 })
