@@ -16,7 +16,7 @@ import { Profile } from "../components/home/Profile";
 export const Home = () => {
   return (
     <>
-      <div className="flex flex-col">
+      <div className="flex lg:h-full flex-col">
         <div className="w-full h-full p-5 space-y-4">
           <div className="bg-simple-gray-29 rounded-lg divide-y-4 divide-purple-400">
             <div className="text-5xl text-center p-4 text-purple-300">
