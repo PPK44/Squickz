@@ -23,6 +23,9 @@ export const Rules = () => {
                 text={`Sign up to save your high score and compare yourself to others!`}
               />
               <Rule
+                text={`Your high score only gets submitted if you reach 80% of Max Clicks`}
+              />
+              <Rule
                 text={`Have fun!`}
               />
             </div>
