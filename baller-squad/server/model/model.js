@@ -15,7 +15,7 @@ mongoose.connect('mongodb+srv://root:daBallerSquad98$@dacluster0.x22ip.mongodb.n
 
 
 mongoose.set('useCreateIndex', true);
-
+//Schema for the users "table" in our mongodb
 let Schema = mongoose.Schema;
 let userSchema = new Schema({
     email: String,
@@ -25,6 +25,7 @@ let userSchema = new Schema({
     collection: 'users'
 });
 
+//Schema for the highscores "table" in our mongodb
 let highscoreSchema = new Schema({
     user: String,
     score: Number,

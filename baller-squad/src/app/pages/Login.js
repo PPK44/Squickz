@@ -9,21 +9,30 @@ import DialogContent from "@material-ui/core/DialogContent";
 import { UserContext } from "../userContext";
 import { Register } from "./Register";
 
+
+//login page to be exported
 export const Login = ({ open, onClose }) => {
+  // context holding who is signed in
   const { userInfo, setUserInfo } = useContext(UserContext);
+  //use refs are to save values from form inputs so you don't have to change state
   const userRef = useRef("");
   const passRef = useRef("");
+  //sets the state for the error and display it on the dialog
   const [error, setError] = useState("");
+  //checks when to open the register dialog
   const [isRegisterOpen, setRegisterOpen] = useState(false);
+  //loads the register form and closes login form
   const loadRegister = () => {
     setRegisterOpen(true);
     closeForm();
   };
 
+  //closes the register form
   const closeRegister = () => {
     setRegisterOpen(false);
   };
 
+  //just makes it so the buttons are not all caps
   const theme = createMuiTheme({
     typography: {
       button: {
@@ -32,6 +41,7 @@ export const Login = ({ open, onClose }) => {
     },
   });
 
+  //set the styling for certain material ui items
   const useStyles = makeStyles((theme) => ({
     input: {
       color: "white",
@@ -71,11 +81,14 @@ export const Login = ({ open, onClose }) => {
   }));
   const classes = useStyles();
 
+  //clears errors and closes login form
   const closeForm = () => {
     setError("");
     onClose();
   }
 
+  //function that does validation on the user input and then does a db call 
+  // to make sure the use exist and if it does log them in and close form
   const formSubmit = () => {
     if(userRef.current.value !== "" && passRef.current.value !== ""){
       fetch(`http://localhost:3000/getUsers?username=${userRef.current.value}`)
@@ -86,8 +99,7 @@ export const Login = ({ open, onClose }) => {
             const data = { userName: res[0].user, isLoggedIn: true };
             setUserInfo(data);
             localStorage.setItem("user", data.userName);
-            setError("");
-            onClose();
+            closeForm();
           }else{
             setError("No records match this username and password");
           }
@@ -99,7 +111,9 @@ export const Login = ({ open, onClose }) => {
   };
 
   return (
+    //sets the theme from above for caps
     <ThemeProvider theme={theme}>
+      {/* material ui dialog  */}
       <Dialog
         aria-labelledby="form-dialog-title"
         className={`flex items-center justify-center h-full w-full self-center border-blue-300`}
