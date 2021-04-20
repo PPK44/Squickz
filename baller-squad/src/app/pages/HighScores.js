@@ -49,22 +49,34 @@ export const HighScores = () => {
           NoDuplicateDifficultytime15 = noDuplicateDifficulty(Difficultytime15);
           NoDuplicateDifficultytime20 = noDuplicateDifficulty(Difficultytime20);
 
-          const topDifficulty210 = getTopN(
+          var topDifficulty210 = getTopN(
             NoDuplicateDifficultytime10,
             "score",
             5
           );
-          const topDifficulty215 = getTopN(
+          var topDifficulty215 = getTopN(
             NoDuplicateDifficultytime15,
             "score",
             5
           );
-          const topDifficulty220 = getTopN(
+          var topDifficulty220 = getTopN(
             NoDuplicateDifficultytime20,
             "score",
             5
           );
+          // topDifficulty210.sort(function(a, b){
+          //   return a.score - b.score;
+          // });
+          // topDifficulty215.sort(function(a, b){
+          //   return a.score - b.score;
+          // });
+          // topDifficulty220.sort(function(a, b){
+          //   return a.score - b.score;
+          // });
 
+          topDifficulty210 = ascendingScoreSort(topDifficulty210)
+          topDifficulty215 = ascendingScoreSort(topDifficulty215)
+          topDifficulty220 = ascendingScoreSort(topDifficulty220)
           d3.select(`#graph`).html("");
           d3.select(`#graph1`).html("");
           d3.select(`#graph2`).html("");
@@ -438,4 +450,11 @@ function noDuplicateDifficulty(DuplicateArray) {
     }
   });
   return newArray;
+}
+
+function ascendingScoreSort (array){
+  array.sort(function(a, b) {
+    return a.score - b.score
+  });
+  return array;
 }
