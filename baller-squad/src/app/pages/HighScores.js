@@ -15,6 +15,10 @@ export const HighScores = () => {
   }, [time10, time15, time20])
 
   const getHighScoreData = () => {
+    var medium = [];
+    var easy = [];
+    var hard = [];
+    var hell = [];
     fetch(`http://localhost:3000/getHighScores?username=${userInfo.userName}`)
     .then((res) => res.json())
     .then(res =>{
@@ -27,34 +31,99 @@ export const HighScores = () => {
           time20.push(element);
         }
       });
-      console.log(time10);
-      if(time10.length != 0){
+    
+      if(time10.length !== 0){
         time10.forEach(el =>{
-          if(time10.level === "Medium"){
-
-          }else if(time10.level === "Easy"){
-
-          }else if(time10.level === "Hard"){
-
-          } else if(time10.level === "Hell"){
-
+          if(el.level === "Medium"){
+            medium.push(el);
+          }else if(el.level === "Easy"){
+            easy.push(el);
+          }else if(el.level === "Hard"){
+            hard.push(el);
+          } else if(el.level === "Hell"){
+            hell.push(el);
           }
         })
-        const top210 = getTopN(time10, "score", 2);
-        //console.log(top210);
-        drawChart(time10, "graph", time10[0].time);
+        const top10 = [];
+        if(medium.length !== 0){
+          top10.push(getTopN(medium, "score", 1));
+        }
+        if(easy.length !== 0){
+          top10.push(getTopN(easy, "score", 1));
+        }
+        if(hard.length !== 0){
+          top10.push(getTopN(hard, "score", 1));
+        }
+        if(hell.length !== 0){
+          top10.push(getTopN(hell, "score", 1));
+        }
+        drawChart(top10, "graph", time10[0].time);
       }
+      medium = [];
+      easy = [];
+      hard = [];
+      hell = [];
       if(time15.length != 0){
-        const top215 = getTopN(time15, "score", 1);
-        drawChart(time15, "graph1", time15[0].time);
+        time15.forEach(el =>{
+          if(el.level === "Medium"){
+            medium.push(el);
+          }else if(el.level === "Easy"){
+            easy.push(el);
+          }else if(el.level === "Hard"){
+            hard.push(el);
+          } else if(el.level === "Hell"){
+            hell.push(el);
+          }
+        });
+          const top15 = [];
+        if(medium.length !== 0){
+          top15.push(getTopN(medium, "score", 1));
+        }
+        if(easy.length !== 0){
+          top15.push(getTopN(easy, "score", 1));
+        }
+        if(hard.length !== 0){
+          top15.push(getTopN(hard, "score", 1));
+        }
+        if(hell.length !== 0){
+          top15.push(getTopN(hell, "score", 1));
+        }
+        drawChart(top15, "graph1", time15[0].time);
       }
-
+      medium = [];
+      easy = [];
+      hard = [];
+      hell = [];
       if(time20.length != 0){
-        const top220 = getTopN(time20, "score", 1);
-        drawChart(time20, "graph2", time20[0].time);
-      }
-    });
-  }
+        time20.forEach(el =>{
+          if(el.level === "Medium"){
+            medium.push(el);
+          }else if(el.level === "Easy"){
+            easy.push(el);
+          }else if(el.level === "Hard"){
+            hard.push(el);
+          } else if(el.level === "Hell"){
+            hell.push(el);
+          }
+        });
+        const top20 = [];
+        if(medium.length !== 0){
+          top20.push(getTopN(medium, "score", 1));
+        }
+        if(easy.length !== 0){
+          top20.push(getTopN(easy, "score", 1));
+        }
+        if(hard.length !== 0){
+          top20.push(getTopN(hard, "score", 1));
+        }
+        if(hell.length !== 0){
+          top20.push(getTopN(hell, "score", 1));
+        }
+        drawChart(top20, "graph2", time20[0].time);
+      
+    };
+  });
+}
   //reference: https://stackoverflow.com/questions/22949597/getting-max-values-in-json-array
   const getTopN = (arr, prop, n) => {
     // clone before sorting, to preserve the original array
@@ -67,7 +136,7 @@ export const HighScores = () => {
         else return -1;
     });
 
-    return clone.slice(0, n || 1);
+    return clone[0];
 }
 
   
@@ -104,7 +173,7 @@ export const HighScores = () => {
     chart.append("g")
          .call(d3.axisLeft(yScale).tickFormat(function(d){
              return d;
-         }).ticks(15));
+         }).ticks(10));
          const colourScale = d3.scaleLinear()
          .domain([0, 0.5])
          .range(['white', 'red']);
@@ -136,7 +205,7 @@ export const HighScores = () => {
 
   return (
     <div className={`w-full h-full p-5 text-white`}>
-      <div className={`grid grid-cols-3 gap-4 h-full w-full text-white`}>
+      <div className={`flex lg:flex-row justify-evenly flex-col h-full w-full text-white`}>
       <div id="graph" classsName="flex flex-col items-left justify-center h-full">
       </div>
       <div id="graph1" classsName="flex flex-col items-left justify-center h-full">

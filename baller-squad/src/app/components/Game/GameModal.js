@@ -9,7 +9,7 @@ export const GameModal = ({ isOpen, onClose, hasWon, clicks, difficulty, difficu
 
 
   const insertHighScoreAndClose = () => {
-    if (userInfo.userName != "" && clicks >= (0.8*difficultyValue)){
+    if (userInfo.userName !== "" && clicks >= (0.8*difficultyValue)){
       console.log(userInfo.userName);
       fetch(`http://localhost:3000/insertHighscore`,{
           method: 'post',
