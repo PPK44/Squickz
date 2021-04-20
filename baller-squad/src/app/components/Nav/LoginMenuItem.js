@@ -38,7 +38,7 @@ const [isOpen, setDialogOpen] = useState(false);
       </a>
         }
       {
-        userInfo.isLoggedIn ? <Link to="/"><a onClick={()=>logout()} className={"cursor-pointer text-red-500 hover:bg-red-700 hover:text-white ml-4 lg:px-8 px-4 py-4 rounded-md text-lg font-medium"}>Logout</a> </Link> : null
+        userInfo.isLoggedIn ? <Link to="/"><a onClick={()=>logout()} className={`cursor-pointer text-red-500 hover:bg-red-700 hover:text-white ${isNavOpen ? navOpenClass : navNotOpenClass}`}>Logout</a> </Link> : null
       }
       <Login
           open={isOpen}

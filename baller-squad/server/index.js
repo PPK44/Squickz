@@ -31,6 +31,17 @@ app.get("/getHighScores", (req, res) => {
   });
 })
 
+app.post("/insertHighscore", (req, res) => {
+  model.Highscore.create({user: req.body.userName, score: req.body.score, level: req.body.level, time: req.body.time}, function(err){
+    if (err) {
+      throw err;
+    }else{
+      console.log("inserted successfully");
+      res.send(JSON.stringify({userName: req.body.userName}));
+    }
+  });
+})
+
 app.post("/registerUser", (req, res) => {
   model.User.create({user: req.body.userName, email: req.body.email, password: req.body.passwd}, function(err){
     if (err) {
