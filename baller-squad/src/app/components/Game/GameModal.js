@@ -1,7 +1,33 @@
 import { Backdrop, Fade, Modal } from "@material-ui/core";
-import React from "react";
+import React, {useContext, useEffect} from "react";
 
-export const GameModal = ({ isOpen, onClose, hasWon, clicks, timeLeft }) => {
+import { UserContext } from "../../userContext";
+
+export const GameModal = ({ isOpen, onClose, hasWon, clicks, difficulty, difficultyValue, initTime, timeLeft }) => {
+
+  const {userInfo, setUserInfo} = useContext(UserContext);
+
+
+  const insertHighScoreAndClose = () => {
+    if (userInfo.userName != "" && clicks >= (0.8*difficultyValue)){
+      console.log(userInfo.userName);
+      fetch(`http://localhost:3000/insertHighscore`,{
+          method: 'post',
+          headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json'
+          },
+          body:JSON.stringify({userName: userInfo.userName, score: clicks, level: difficulty, time: initTime})
+      }).then((res) => res.json())
+      .then(res =>{
+          console.log(res);
+          
+      });
+    }
+    onClose();
+  }
+
+
   return (
     <Modal
       aria-labelledby="Game pop-up"
@@ -29,7 +55,7 @@ export const GameModal = ({ isOpen, onClose, hasWon, clicks, timeLeft }) => {
             )}
 
             <button
-              onClick={onClose}
+              onClick={insertHighScoreAndClose}
               className={`bg-blue-500 inset-x-0 bottom-0 rounded p-2 w-full h-12 text-lg hover:bg-blue-600 transition duration-300`}
             >
               Okay

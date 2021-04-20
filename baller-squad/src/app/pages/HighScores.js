@@ -12,7 +12,7 @@ export const HighScores = () => {
   const time20 = [];
   useEffect(() => {
     getHighScoreData();
-  }, [data])
+  }, [time10, time15, time20])
 
   const getHighScoreData = () => {
     fetch(`http://localhost:3000/getHighScores?username=${userInfo.userName}`)
@@ -27,13 +27,32 @@ export const HighScores = () => {
           time20.push(element);
         }
       });
-      const top210 = getTopN(time10, "score", 2);
-      const top215 = getTopN(time15, "score", 2);
-      const top220 = getTopN(time20, "score", 2);
-      drawChart(top210, "graph", time10[0].time);
-      drawChart(top215, "graph1", time15[0].time);
-      drawChart(top220, "graph2", time20[0].time);
-   
+      console.log(time10);
+      if(time10.length != 0){
+        time10.forEach(el =>{
+          if(time10.level === "Medium"){
+
+          }else if(time10.level === "Easy"){
+
+          }else if(time10.level === "Hard"){
+
+          } else if(time10.level === "Hell"){
+
+          }
+        })
+        const top210 = getTopN(time10, "score", 2);
+        //console.log(top210);
+        drawChart(time10, "graph", time10[0].time);
+      }
+      if(time15.length != 0){
+        const top215 = getTopN(time15, "score", 1);
+        drawChart(time15, "graph1", time15[0].time);
+      }
+
+      if(time20.length != 0){
+        const top220 = getTopN(time20, "score", 1);
+        drawChart(time20, "graph2", time20[0].time);
+      }
     });
   }
   //reference: https://stackoverflow.com/questions/22949597/getting-max-values-in-json-array
@@ -85,7 +104,7 @@ export const HighScores = () => {
     chart.append("g")
          .call(d3.axisLeft(yScale).tickFormat(function(d){
              return d;
-         }).ticks(10));
+         }).ticks(15));
          const colourScale = d3.scaleLinear()
          .domain([0, 0.5])
          .range(['white', 'red']);

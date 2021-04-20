@@ -23,6 +23,7 @@ export const Play = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [wiggleEffect, setWiggleEffect] = useState(false);
 
+
   const [timer, setTimer] = useState({
     on: false,
     time: GAME_TIMES[0],
@@ -105,8 +106,8 @@ export const Play = () => {
     const nextClickHeight = currentHeight + clickHeight;
     const containerHeight = containerRef.current.offsetHeight;
     setWiggleEffect(true);
-    setClicks((c) => c + 1);
-    if (containerHeight <= nextClickHeight) {
+    
+    if (clicks === gameDetails.maxClicks) {
       toggleTimer();
       setCurrentHeight(containerHeight);
       setGameDetails({
@@ -117,6 +118,7 @@ export const Play = () => {
       setIsModalOpen(true);
     } else {
       setCurrentHeight((h) => h + clickHeight);
+      setClicks((c) => c + 1);
     }
   };
 
@@ -277,6 +279,9 @@ export const Play = () => {
           onClose={() => closeModal()}
           hasWon={gameDetails.hasWon}
           clicks={clicks}
+          difficulty={DIFFICULTIES[gameDetails.difficulty].difficulty}
+          difficultyValue={DIFFICULTIES[gameDetails.difficulty].value}
+          initTime={GAME_TIMES[gameDetails.maxTime]}
           timeLeft={gameDetails.gameLength}
         ></GameModal>
       </div>
