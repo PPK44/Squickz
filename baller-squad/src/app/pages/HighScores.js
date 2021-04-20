@@ -45,38 +45,37 @@ export const HighScores = () => {
         var NoDuplicateDifficultytime15 = []
         var NoDuplicateDifficultytime20 = []
 
-        function noDuplicateDifficulty(DuplicateArray, NoDuplicateArray){
+        function noDuplicateDifficulty(DuplicateArray){
+          var newArray = [];
           let isInArray = false;
 
           DuplicateArray.forEach((d) =>{
-            if (NoDuplicateArray.length == 0){
-              NoDuplicateArray.push(d)
+            if (newArray.length == 0){
+              newArray.push(d)
             }
-            NoDuplicateArray.map((v, i) => {
-              // If user is already in NoDuplicateArray
+            newArray.map((v, i) => {
+              // If user is already in newArray
               // True: Check which score is higher and pop the lower one out
               // False: Insert user
               if (v.user === d.user){
                 isInArray = true;
                 if(d.score > v.score){
-                  NoDuplicateArray.push(d)
-                  NoDuplicateArray.splice(i, 1)
+                  newArray.push(d)
+                  newArray.splice(i, 1)
                 }
               }
             });
 
             if (isInArray === false) {
-              NoDuplicateArray.push(d)
+              newArray.push(d)
             }
           });
-        }
-        // NoDuplicateDifficultytime10 = noDuplicateDifficulty(Difficultytime10)
-        // NoDuplicateDifficultytime15 = noDuplicateDifficulty(Difficultytime15)
-        // NoDuplicateDifficultytime20 = noDuplicateDifficulty(Difficultytime20)
+          return newArray;
+        }        
+        NoDuplicateDifficultytime10 = noDuplicateDifficulty(Difficultytime10)
+        NoDuplicateDifficultytime15 = noDuplicateDifficulty(Difficultytime15)
+        NoDuplicateDifficultytime20 = noDuplicateDifficulty(Difficultytime20)
         
-        noDuplicateDifficulty(Difficultytime10, NoDuplicateDifficultytime10)
-        noDuplicateDifficulty(Difficultytime15, NoDuplicateDifficultytime15)
-        noDuplicateDifficulty(Difficultytime20, NoDuplicateDifficultytime20)
         // Difficultytime10.forEach((d) =>{
         //   let isInArray = false;
 
