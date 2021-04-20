@@ -1,5 +1,6 @@
 import React from "react";
 
+// conatiner for displaying game details
 export const GameDetail = ({ text, value, color }) => {
   return (
     <div

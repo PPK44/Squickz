@@ -1,6 +1,7 @@
 import React from 'react';
 import { GameDetail } from './GameDetail';
 
+// container dsplaying mutliple game details
 export const GameDetails = ({clicks, maxClicks, difficulty}) => {
   return (
     

@@ -1,6 +1,7 @@
 import React from "react";
 import { ArrowUpward, ArrowDownward } from "@material-ui/icons";
 
+// increments or decrements a value passed
 export const Incrementer = ({
   color,
   text,

@@ -10,9 +10,13 @@ import { GAME_TIMES, DIFFICULTIES } from "../constants";
 export const Play = () => {
   const boxRef = useRef();
   const containerRef = useRef();
+  // current height of the clicks (increment)
   const [clickHeight, setClickHeight] = useState(1);
+  // num clicks currently done
   const [clicks, setClicks] = useState(0);
+  // current height of the div
   const [currentHeight, setCurrentHeight] = useState(1);
+  // details about the game
   const [gameDetails, setGameDetails] = useState({
     hasWon: false,
     maxClicks: 0,
@@ -20,7 +24,9 @@ export const Play = () => {
     difficulty: 0,
     maxTime: 0,
   });
+  // var for checking to open modal or not
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // var for wiggling click button
   const [wiggleEffect, setWiggleEffect] = useState(false);
 
   // timer info

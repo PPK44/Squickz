@@ -1,5 +1,6 @@
 import React from "react";
 
+// button for use in the play screen
 export const GameButton = ({ onClick, text, color, classes = null, animateEnd = null }) => {
   return (
     <>
