@@ -17,7 +17,7 @@ export const Login = ({ open, onClose }) => {
   const [isRegisterOpen, setRegisterOpen] = useState(false);
   const loadRegister = () => {
     setRegisterOpen(true);
-    onClose();
+    closeForm();
   };
 
   const closeRegister = () => {
@@ -71,22 +71,27 @@ export const Login = ({ open, onClose }) => {
   }));
   const classes = useStyles();
 
+  const closeForm = () => {
+    setError("");
+    onClose();
+  }
+
   const formSubmit = () => {
     if(userRef.current.value !== "" && passRef.current.value !== ""){
-    fetch(`http://localhost:3000/getUsers?username=${userRef.current.value}`)
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res.length);
-        if(res.length !== 0){
-          const data = { userName: res[0].user, isLoggedIn: true };
-          setUserInfo(data);
-          localStorage.setItem("user", data.userName);
-          onClose();
-        }else{
-          setError("No records match this username and password");
-        }
-      });
-      
+      fetch(`http://localhost:3000/getUsers?username=${userRef.current.value}`)
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res.length);
+          if(res.length !== 0){
+            const data = { userName: res[0].user, isLoggedIn: true };
+            setUserInfo(data);
+            localStorage.setItem("user", data.userName);
+            setError("");
+            onClose();
+          }else{
+            setError("No records match this username and password");
+          }
+        });
     }else{
       setError("You have to input a username or password");
     }
@@ -108,7 +113,7 @@ export const Login = ({ open, onClose }) => {
         >
           <div class="absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50">
             <svg
-              onClick={onClose}
+              onClick={closeForm}
               className="fill-current text-white"
               xmlns="http://www.w3.org/2000/svg"
               width="18"
