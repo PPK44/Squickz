@@ -3,6 +3,8 @@ import React from "react";
 import { Footer } from "../components/Nav/Footer";
 import { Rule } from "../components/rules/Rule";
 
+// Rules page 
+// Displays some rules and how to plays for the game
 export const Rules = () => {
   return (
     <>

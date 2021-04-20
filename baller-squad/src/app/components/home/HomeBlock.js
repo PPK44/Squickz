@@ -1,5 +1,6 @@
 import React from "react";
 
+// A display for showing what is good about our sick website
 export const HomeBlock = ({ text, icon }) => {
   return (
     <div className={`relative h-40 lg:w-40 md:w-40 w-full z-0 items-center justify-center select-none cursor-default`}>

@@ -1,5 +1,7 @@
 import React from "react";
 
+// An individual Profile display for a ballersquad member
+// Displays name, student number and description
 export const Profile = ({ name, studentNumber, description }) => {
   return (
     <>
@@ -12,7 +14,7 @@ export const Profile = ({ name, studentNumber, description }) => {
             <i>{studentNumber}</i>
           </div>
         </div>
-        <div className={`text-lg w-1/2 text-right p-5 rounded-lg bg-opacity-10 bg-white h-full`}>
+        <div className={`text-lg sm:text-sm w-1/2 text-right p-5 rounded-lg bg-opacity-10 bg-white h-full`}>
           {description}
         </div>
       </div>

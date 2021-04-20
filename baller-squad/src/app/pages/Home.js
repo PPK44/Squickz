@@ -11,10 +11,12 @@ import {
 } from "@material-ui/icons";
 import { Profile } from "../components/home/Profile";
 
+// Home Display
+// Lots of HMTL and CSS not really any logic just displays
 export const Home = () => {
   return (
     <>
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col">
         <div className="w-full h-full p-5 space-y-4">
           <div className="bg-simple-gray-29 rounded-lg divide-y-4 divide-purple-400">
             <div className="text-5xl text-center p-4 text-purple-300">
