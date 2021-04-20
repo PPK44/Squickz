@@ -21,6 +21,7 @@ export const HighScores = () => {
     )
       .then((res) => res.json())
       .then((res) => {
+        // Sorts the result into three categories based on time, if they exist
         if (res.length !== 0) {
           console.log(res);
           var Difficultytime10 = [];
@@ -36,11 +37,7 @@ export const HighScores = () => {
             }
           });
 
-          // To eliminate duplicating users with various scores
-          // Create an empty array
-          // Check if element is in the array
-          // If it is not, insert
-          // If it is in there, check if score is higher or not
+          // D3 cannot handle multiple duplicate x values (which is our users), so only the highest score of the user is allowed
           var NoDuplicateDifficultytime10 = [];
           var NoDuplicateDifficultytime15 = [];
           var NoDuplicateDifficultytime20 = [];
@@ -49,48 +46,45 @@ export const HighScores = () => {
           NoDuplicateDifficultytime15 = noDuplicateDifficulty(Difficultytime15);
           NoDuplicateDifficultytime20 = noDuplicateDifficulty(Difficultytime20);
 
-          var topDifficulty210 = getTopN(
+          // Gets the top 5 scores
+          var topDifficulty10 = getTopN(
             NoDuplicateDifficultytime10,
             "score",
             5
           );
-          var topDifficulty215 = getTopN(
+          var topDifficulty15 = getTopN(
             NoDuplicateDifficultytime15,
             "score",
             5
           );
-          var topDifficulty220 = getTopN(
+          var topDifficulty20 = getTopN(
             NoDuplicateDifficultytime20,
             "score",
             5
           );
-          // topDifficulty210.sort(function(a, b){
-          //   return a.score - b.score;
-          // });
-          // topDifficulty215.sort(function(a, b){
-          //   return a.score - b.score;
-          // });
-          // topDifficulty220.sort(function(a, b){
-          //   return a.score - b.score;
-          // });
+          
+          // Sorts them in ascending order
+          topDifficulty10 = ascendingScoreSort(topDifficulty10)
+          topDifficulty15 = ascendingScoreSort(topDifficulty15)
+          topDifficulty20 = ascendingScoreSort(topDifficulty20)
 
-          topDifficulty210 = ascendingScoreSort(topDifficulty210)
-          topDifficulty215 = ascendingScoreSort(topDifficulty215)
-          topDifficulty220 = ascendingScoreSort(topDifficulty220)
+          // Empties the graphs so we dont constantly add new graphs
           d3.select(`#graph`).html("");
           d3.select(`#graph1`).html("");
           d3.select(`#graph2`).html("");
 
-          if (topDifficulty210.length !== 0) {
-            drawChart(topDifficulty210, "graph", Difficultytime10[0].time, 1);
+          // Check if they exist and if they do then we draw them
+          if (topDifficulty10.length !== 0) {
+            drawChart(topDifficulty10, "graph", Difficultytime10[0].time, 1);
           }
-          if (topDifficulty215.length !== 0) {
-            drawChart(topDifficulty215, "graph1", Difficultytime15[0].time, 1);
+          if (topDifficulty15.length !== 0) {
+            drawChart(topDifficulty15, "graph1", Difficultytime15[0].time, 1);
           }
-          if (topDifficulty220.length !== 0) {
-            drawChart(topDifficulty220, "graph2", Difficultytime20[0].time, 1);
+          if (topDifficulty20.length !== 0) {
+            drawChart(topDifficulty20, "graph2", Difficultytime20[0].time, 1);
           }
         } else {
+          // If response is equal to zero then we just empty the graphs
           d3.select(`#graph`).html("");
           d3.select(`#graph1`).html("");
           d3.select(`#graph2`).html("");
@@ -98,6 +92,7 @@ export const HighScores = () => {
       });
   };
 
+  // Gets the user's highscores, x-axis - difficulties, y-axis - score
   const getHighScoreData = () => {
     var medium = [];
     var easy = [];
@@ -106,6 +101,7 @@ export const HighScores = () => {
     fetch(`http://localhost:3000/getHighScores?username=${userInfo.userName}`)
       .then((res) => res.json())
       .then((res) => {
+        // Sorts the result into three categories based on time
         res.forEach((element) => {
           if (element.time === "10") {
             time10.push(element);
@@ -115,7 +111,8 @@ export const HighScores = () => {
             time20.push(element);
           }
         });
-
+        
+        // Sorts each time array into three categories based on difficulty and draws the graph
         if (time10.length !== 0) {
           time10.forEach((el) => {
             if (el.level === "Medium") {
@@ -207,6 +204,7 @@ export const HighScores = () => {
         }
       });
   };
+  // Gets top n by category(prop) of the array and returns an array of the top n
   //reference: https://stackoverflow.com/questions/22949597/getting-max-values-in-json-array
   const getTopN = (arr, prop, n) => {
     // clone before sorting, to preserve the original array
@@ -222,6 +220,7 @@ export const HighScores = () => {
     return clone.slice(0, n || 1);
   };
 
+  // Gets top n by category(prop) of the array and returns the highest value
   const getTopN2 = (arr, prop, n) => {
     // clone before sorting, to preserve the original array
     const clone = arr.slice(0);
@@ -236,6 +235,7 @@ export const HighScores = () => {
     return clone[0];
   };
 
+  // D3 code to draw the charts
   // Flag - 0 = difficulty, 1 = users for x axis
   const drawChart = (data, graph, time, flag) => {
     let height, width;
@@ -312,23 +312,23 @@ export const HighScores = () => {
       .style("fill", "white")
       .text("Score");
 
-  if (flag == 0){
-    svg
-      .append("text")
-      .attr("x", chartWidth / 2 + margin)
-      .attr("y", 380)
-      .attr("text-anchor", "middle")
-      .style("fill", "white")
-      .text("Level");
-  }else{
-    svg
-      .append("text")
-      .attr("x", chartWidth / 2 + margin)
-      .attr("y", 380)
-      .attr("text-anchor", "middle")
-      .style("fill", "white")
-      .text("Users");
-  }
+    if (flag == 0) {
+      svg
+        .append("text")
+        .attr("x", chartWidth / 2 + margin)
+        .attr("y", 380)
+        .attr("text-anchor", "middle")
+        .style("fill", "white")
+        .text("Level");
+    } else {
+      svg
+        .append("text")
+        .attr("x", chartWidth / 2 + margin)
+        .attr("y", 380)
+        .attr("text-anchor", "middle")
+        .style("fill", "white")
+        .text("Users");
+    }
 
     if (flag === 0) {
       chart
@@ -376,12 +376,6 @@ export const HighScores = () => {
       <div
         className={`flex flex-row flex1 w-full justify-evenly text-white items-center justify-start flex-wrap`}
       >
-        {/* <button
-          className="box-border h-32 w-32 p-4 border-pink-200 border-4 m4 rounded-lg"
-          onClick={getHighScoreData}
-        >
-          Personal high scores
-        </button> */}
         <HighScoreButton
           text={`Personal High Scores`}
           onClick={() => getHighScoreData()}
@@ -424,6 +418,11 @@ export const HighScores = () => {
   );
 };
 
+// Creates an empty new array
+// Set the flag as false
+// Check if element is in the new array
+// If it is in there, set the flag to true then check if score is higher or not 
+// If the flag is false then insert element into the new array
 function noDuplicateDifficulty(DuplicateArray) {
   var newArray = [];
 
@@ -433,9 +432,6 @@ function noDuplicateDifficulty(DuplicateArray) {
       newArray.push(d);
     }
     newArray.map((v, i) => {
-      // If user is already in newArray
-      // True: Check which score is higher and pop the lower one out
-      // False: Insert user
       if (v.user === d.user) {
         isInArray = true;
         if (d.score > v.score) {
@@ -452,8 +448,9 @@ function noDuplicateDifficulty(DuplicateArray) {
   return newArray;
 }
 
-function ascendingScoreSort (array){
-  array.sort(function(a, b) {
+// Sorts an array in asecnding order by score
+function ascendingScoreSort(array) {
+  array.sort(function (a, b) {
     return a.score - b.score
   });
   return array;
