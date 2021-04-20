@@ -11,6 +11,8 @@ Before you submit your project, modify the following table to include everyone's
 ## How to run our Application
 To run this, you will need to use 2 `command prompts`.  One will be open in `./baller-squad`, and another in `./baller-squad/server`.  In the first command prompt (`./baller-squad`), run `npm i` to install all the dependencies.  After this is completed, start the server by entering the command `node index.js` in the command prompt open in `./baller-squad/server`.  After the server is running, start the website by typing in `npm start` or `yarn start` if you have yarn installed.  This command should be run in the command prompt open in `./baller-squad`.
 
+A user to login to with current data is a username of: `test` and password of: `test`
+
 ## Overview
 This group project is designed for you to demonstrate the skills that you have learned in this course.  The final project that you submit in the last week of classes will be a completed web application.  Non-functional requirements, especially those associated with production-readiness, will be considered extremely important when marking this project.  You are expected to work in a group of 3-5 when completing this project.  Students will be prohibited from working alone on the project, as this eliminates one of the learning objectives of this assessment.  
 
