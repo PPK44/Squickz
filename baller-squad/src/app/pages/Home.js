@@ -1,5 +1,5 @@
 // Home page for app
-import React from "react";
+import React, { useContext } from "react";
 import { HomeBlock } from "../components/home/HomeBlock";
 import { Footer } from "../components/Nav/Footer";
 import { Link } from "react-router-dom";
@@ -10,10 +10,12 @@ import {
   EmojiEmotions,
 } from "@material-ui/icons";
 import { Profile } from "../components/home/Profile";
+import { RouteContext } from "../routeContext";
 
 // Home Display
 // Lots of HMTL and CSS not really any logic just displays
 export const Home = () => {
+  const { route, setRoute } = useContext(RouteContext);
   return (
     <>
       <div className="flex lg:h-full flex-col">
@@ -39,7 +41,7 @@ export const Home = () => {
                 addicting than <i>Runescape&trade;</i>. Test your skills and try
                 to beat the timer with how fast you can click!
               </div>
-              <Link to="/play">
+              <Link to="/play" onClick={()=>setRoute("/play")}>
                 <div
                   className={`bg-purple-700 rounded-full py-3 px-6 hover:w-44 w-40 flex align-middle text-lg text-center justify-center p-5 hover:bg-purple-600 ease-in-out duration-200`}
                 >
