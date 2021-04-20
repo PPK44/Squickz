@@ -32,6 +32,7 @@ export const App = () => {
     };
   }, []);
 
+  // When the tab closes remove the localstore for currently visited page
   window.addEventListener("beforeunload", (ev) => {
     ev.preventDefault();
     localStorage.removeItem("page");

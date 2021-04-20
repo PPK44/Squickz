@@ -23,12 +23,13 @@ export const Play = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [wiggleEffect, setWiggleEffect] = useState(false);
 
-
+  // timer info
   const [timer, setTimer] = useState({
     on: false,
     time: GAME_TIMES[0],
   });
 
+  // get the current height of the gradient box
   useLayoutEffect(() => {
     if (boxRef.current) {
       setCurrentHeight(boxRef.current.offsetHeight);
@@ -87,6 +88,7 @@ export const Play = () => {
     // eslint error but idk if i add dependency then it forever updates so wut ever yolo
   }, [clickHeight]);
 
+  // toggles the timer
   const toggleTimer = () => {
     setTimer({
       ...timer,
@@ -94,6 +96,7 @@ export const Play = () => {
     });
   };
 
+  // resets the timer
   const resetTimer = () => {
     setTimer({
       on: false,
@@ -107,6 +110,8 @@ export const Play = () => {
     const containerHeight = containerRef.current.offsetHeight;
     setWiggleEffect(true);
     
+    // If they have reached the max clicks
+    // show them the winning model and reset
     if (clicks === gameDetails.maxClicks) {
       toggleTimer();
       setCurrentHeight(containerHeight);
@@ -131,6 +136,7 @@ export const Play = () => {
     });
   };
 
+  // resets the game
   const resetGame = () => {
     resetTimer();
     setGameDetails({
@@ -142,6 +148,7 @@ export const Play = () => {
     setCurrentHeight(1);
   };
 
+  // closes the model and resets game
   const closeModal = async () => {
     setIsModalOpen(false);
     setCurrentHeight(1);
@@ -150,6 +157,8 @@ export const Play = () => {
     resetGame();
   };
 
+  // adds an extra time level
+  // 10 -> 15 -> 20
   const incrementTime = () => {
     if (gameDetails.maxTime < GAME_TIMES.length - 1) {
       setGameDetails({
@@ -164,6 +173,8 @@ export const Play = () => {
     }
   };
 
+  // decrements the time level
+  // 20 -> 15 -> 10
   const decrementTime = () => {
     if (gameDetails.maxTime > 0) {
       setGameDetails({
@@ -177,6 +188,7 @@ export const Play = () => {
     }
   };
 
+  // increases difficulty
   const incrementDifficulty = () => {
     console.log(DIFFICULTIES.length);
     console.log(gameDetails.difficulty);
@@ -188,6 +200,7 @@ export const Play = () => {
     }
   };
 
+  // decreases difficulty
   const decrementDifficulty = () => {
     if (gameDetails.difficulty > 0) {
       setGameDetails({
@@ -197,6 +210,7 @@ export const Play = () => {
     }
   };
 
+  // changes the style for the height of the gradient div
   const style = {
     height: currentHeight,
   };
