@@ -49,6 +49,10 @@ module.exports = {
   },
   variants: {
     extend: {},
+    width: ["responsive", "hover", "focus"],
+    height: ["responsive", "hover", "focus"],
+    borderRadius: ['hover', 'focus'],
+    borderWidth: ['hover', 'focus'],
   },
   plugins: [],
 };
