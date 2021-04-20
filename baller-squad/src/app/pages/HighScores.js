@@ -38,19 +38,109 @@ export const HighScores = () => {
 
         // To eliminate duplicating users with various scores
         // Create an empty array
-        // Check if element is in the dictionary
+        // Check if element is in the array
         // If it is not, insert
         // If it is in there, check if score is higher or not
-        
+        var NoDuplicateDifficultytime10 = []
+        var NoDuplicateDifficultytime15 = []
+        var NoDuplicateDifficultytime20 = []
 
-        console.log(Difficultytime10)
-        const topDifficulty210 = getTopN(Difficultytime10, "score", 5);
-        const topDifficulty215 = getTopN(Difficultytime15, "score", 5);
-        const topDifficulty220 = getTopN(Difficultytime20, "score", 5);
+        // function noDuplicateDifficulty(DuplicateArray){
+        //   var newArray = [];
+        //   let isInArray = false;
 
+        //   DuplicateArray.forEach((d) =>{
+        //     if (newArray.length == 0){
+        //       newArray.push(d)
+        //     }
+        //     newArray.map((v, i) => {
+        //       // If user is already in newArray
+        //       // True: Check which score is higher and pop the lower one out
+        //       // False: Insert user
+        //       if (v.user == d.user){
+        //         isInArray = true;
+        //         if(d.score > v.score){
+        //           newArray.push(d)
+        //           newArray.splice(i, 1)
+        //         }
+        //       }
+        //     });
 
-        console.log(Difficultytime20)
-        console.log(topDifficulty220)
+        //     if (isInArray === false) {
+        //       newArray.push(d)
+        //     }
+        //   });
+        //   return newArray;
+        // }
+        // NoDuplicateDifficultytime10 = noDuplicateDifficulty(Difficultytime10)
+        // NoDuplicateDifficultytime15 = noDuplicateDifficulty(Difficultytime15)
+        // NoDuplicateDifficultytime20 = noDuplicateDifficulty(Difficultytime20)
+        Difficultytime10.forEach((d) =>{
+          let isInArray = false;
+
+          if (NoDuplicateDifficultytime10.length == 0){
+            NoDuplicateDifficultytime10.push(d)
+          }
+          NoDuplicateDifficultytime10.map((v, i) => {
+            // If user is already in NoDuplicateArray
+            // True: Check which score is higher and pop the lower one out
+            if (v.user === d.user){
+              isInArray = true;
+              if(d.score > v.score){
+                NoDuplicateDifficultytime10.push(d)
+                NoDuplicateDifficultytime10.splice(i, 1)
+              }
+            }
+          });
+
+          if (isInArray === false) {
+            NoDuplicateDifficultytime10.push(d)
+          }
+        });
+
+        Difficultytime15.forEach((d) =>{
+          if (NoDuplicateDifficultytime15.length == 0){
+            NoDuplicateDifficultytime15.push(d)
+          }
+          NoDuplicateDifficultytime15.map((v, i) => {
+            // If user is already in NoDuplicateArray
+            // True: Check which score is higher and pop the lower one out
+            // False: Insert user
+            if (v.user == d.user){
+              if(d.score > v.score){
+                NoDuplicateDifficultytime15.push(d)
+                NoDuplicateDifficultytime15.splice(i, 1)
+              }
+            } else if (v.user != d.user)  {
+              NoDuplicateDifficultytime15.push(d)
+            }
+          });
+        });
+
+        Difficultytime20.forEach((d) =>{
+          if (NoDuplicateDifficultytime20.length == 0){
+            NoDuplicateDifficultytime20.push(d)
+          }
+          NoDuplicateDifficultytime20.map((v, i) => {
+            // If user is already in NoDuplicateArray
+            // True: Check which score is higher and pop the lower one out
+            // False: Insert user
+            if (v.user == d.user){
+              if(d.score > v.score){
+                NoDuplicateDifficultytime20.push(d)
+                NoDuplicateDifficultytime20.splice(i, 1)
+              }
+            } else if (v.user != d.user)  {
+              NoDuplicateDifficultytime20.push(d)
+            }
+          });
+        });
+
+        console.log("NoDuplicate")
+        console.log(NoDuplicateDifficultytime10)
+        const topDifficulty210 = getTopN(NoDuplicateDifficultytime10, "score", 5);
+        const topDifficulty215 = getTopN(NoDuplicateDifficultytime15, "score", 5);
+        const topDifficulty220 = getTopN(NoDuplicateDifficultytime20, "score", 5);
         
         d3.select(`#graph`).html("")
         d3.select(`#graph1`).html("")
@@ -135,9 +225,9 @@ export const HighScores = () => {
     var xScale = d3.scaleBand().range([0, chartWidth]).padding(0.4),
     yScale = d3.scaleLinear().range([chartHeight, 0]);
 
-    if (flag == 0){
+    if (flag === 0){
       xScale.domain(data.map(function(d){return d.level;}));
-    } else if (flag == 1){
+    } else if (flag === 1){
       xScale.domain(data.map(function(d){return d.user;}));
     }
 
@@ -168,7 +258,7 @@ export const HighScores = () => {
         .style('fill', 'white')
         .text('Level');
 
-    if (flag == 0){
+    if (flag === 0){
         chart.selectAll(".bar")
         .data(data)
         .enter().append("rect")
@@ -178,7 +268,7 @@ export const HighScores = () => {
         .attr("width", xScale.bandwidth())
         .attr("height", function(d) { return chartHeight - yScale(d.score); })
         .attr("fill", (data) => colourScale(data.score));
-    } else if (flag == 1){
+    } else if (flag === 1){
         chart.selectAll(".bar")
         .data(data)
         .enter().append("rect")
