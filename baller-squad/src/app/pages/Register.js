@@ -8,16 +8,22 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import { UserContext } from "../userContext";
 
+//register page to be exported so it can be called
 export const Register = ({open, onClose}) =>{   
+    //use refs are to save values from form inputs so you don't have to change state
     const userRef = useRef('');
     const passRef = useRef('');
     const confirmPassRef = useRef('');
     const emailRef = useRef('');
+    // context holding who is signed in
     const {userInfo, setUserInfo} = useContext(UserContext);
+    //to set an error on bad input and used to display it in form
     const [error, setError] = useState("");
     
-    // Regex reference: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+    //function to be called when the register button is clicked and does validation, makes sure passwors match
+    // and fields are not empty as well as email is in proper format and there are no users with same username
     const formSubmit = () => {
+        // Regex reference: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
         const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if(userRef.current.value !== "" && passRef.current.value !== "" && emailRef.current.value !== ""){
             if(passRef.current.value === confirmPassRef.current.value){
@@ -41,8 +47,7 @@ export const Register = ({open, onClose}) =>{
                         console.log(res.userName);
                         const data = {userName: res.userName, isLoggedIn: true};
                         setUserInfo(data);
-                        setError("");
-                        onClose();
+                        closeForm();
                     });
                     }
                 });
@@ -57,11 +62,12 @@ export const Register = ({open, onClose}) =>{
         }
     }
 
+    //closes the form and clears the errors
     const closeForm = () => {
         setError("");
         onClose();
     }
-
+    //styles that are particular to material ui
     const useStyles = makeStyles(theme => ({
         input: {
             color: "white",
@@ -74,34 +80,17 @@ export const Register = ({open, onClose}) =>{
             }
 
         },focusedLabel:{},
-        inputBackground: {
-            label: "white"
-        },
-        customizedButton: {
-          position: 'absolute',
-          left: '85%',
-          top: '5%',
-          color: 'red'
-        },
-        submitButton: {
-            position: 'absolute',
-            left: '5%',
-            bottom: '4%',
-            backgroundColor: '#7e57c2',
-            color: 'black',
-            "&:hover":{
-                backgroundColor: '#583c87'
-            }
-          }
       }));
       const classes = useStyles();
 
     return (
         <div>
+        {/* ddialog from material ui  */}
         <Dialog 
         aria-labelledby="form-dialog-title" 
         open={open} 
-        disableBackdropClick>
+        disableBackdropClick
+        disableEscapeKeyDown>
             <div className={` justify-center bg-simple-gray-41 text-white`}>
             {/* Reference for the svg: https://www.tailwindtoolbox.com/components/modal */}
             <div class="absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50">
