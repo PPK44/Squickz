@@ -13,7 +13,7 @@ export const Login = ({ open, onClose }) => {
   const { userInfo, setUserInfo } = useContext(UserContext);
   const userRef = useRef("");
   const passRef = useRef("");
-
+  const [error, setError] = useState("");
   const [isRegisterOpen, setRegisterOpen] = useState(false);
   const loadRegister = () => {
     setRegisterOpen(true);
@@ -72,14 +72,25 @@ export const Login = ({ open, onClose }) => {
   const classes = useStyles();
 
   const formSubmit = () => {
+    if(userRef.current.value !== "" && passRef.current.value !== ""){
     fetch(`http://localhost:3000/getUsers?username=${userRef.current.value}`)
       .then((res) => res.json())
       .then((res) => {
-        const data = { userName: res[0].user, isLoggedIn: true };
-        setUserInfo(data);
-        localStorage.setItem("user", data.userName);
+        console.log(res.length);
+        if(res.length !== 0){
+          const data = { userName: res[0].user, isLoggedIn: true };
+          setUserInfo(data);
+          localStorage.setItem("user", data.userName);
+          onClose();
+        }else{
+          setError("No records match this username and password");
+        }
       });
-    onClose();
+      
+    }else{
+      setError("You have to input a username or password");
+    }
+    
   };
 
   return (
@@ -110,7 +121,7 @@ export const Login = ({ open, onClose }) => {
           <DialogTitle id="form-dialog-title center">Login Form</DialogTitle>
         </div>
         <div
-          className={`  justify-center h-auto w-auto bg-simple-gray-41 pb-10 px-5 focus:outline-none text-white`}
+          className={`justify-center h-auto w-auto bg-simple-gray-41 pb-10 px-5 focus:outline-none text-white`}
         >
           <DialogContent>
             <p>Please enter your Login information</p>
@@ -147,6 +158,7 @@ export const Login = ({ open, onClose }) => {
               }}
               fullWidth
             />
+            <div className={`text-red-500`}>{error}</div>
           </DialogContent>
           <DialogActions>
             <button

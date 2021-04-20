@@ -1,9 +1,7 @@
 // Home page for app
-import React, { useEffect, useRef, useState, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import * as d3 from "d3";
 import { UserContext } from "../userContext";
-import { GetAppSharp } from "@material-ui/icons";
-const data = "never";
 
 export const HighScores = () => {
   const { userInfo, setUserInfo } = useContext(UserContext);
@@ -364,7 +362,7 @@ function noDuplicateDifficulty(DuplicateArray){
 
   DuplicateArray.forEach((d) =>{
     let isInArray = false;
-    if (newArray.length == 0){
+    if (newArray.length === 0){
       newArray.push(d)
     }
     newArray.map((v, i) => {
