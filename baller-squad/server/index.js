@@ -15,7 +15,8 @@ app.get("/getUsers", (req, res) => {
       console.log(list)
       res.send(list);
     }else{
-      console.log("ERROR! no results on that data")
+      console.log("ERROR! no results on that data");
+      res.send([]);
     }
   });
 })
