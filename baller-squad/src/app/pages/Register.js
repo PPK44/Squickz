@@ -11,26 +11,40 @@ import { UserContext } from "../userContext";
 export const Register = ({open, onClose}) =>{   
     const userRef = useRef('');
     const passRef = useRef('');
+    const confirmPassRef = useRef('');
     const emailRef = useRef('');
     const {userInfo, setUserInfo} = useContext(UserContext);
     const [error, setError] = useState("");
     
     const formSubmit = () => {
         if(userRef.current.value !== "" && passRef.current.value !== "" && emailRef.current.value !== ""){
-        fetch(`http://localhost:3000/registerUser`,{
-            method: 'post',
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            },
-            body:JSON.stringify({userName: userRef.current.value, email: emailRef.current.value, passwd: passRef.current.value})
-        }).then((res) => res.json())
-        .then(res =>{
-            console.log(res.userName);
-            const data = {userName: res.userName, isLoggedIn: true};
-            setUserInfo(data);
-            onClose();
-        });
+            if(passRef.current.value === confirmPassRef.current.value){
+                fetch(`http://localhost:3000/getUsers?username=${userRef.current.value}`)
+                .then((res) => res.json())
+                .then((res) => {
+                    console.log(res.length);
+                    if(res.length !== 0){
+                        setError("There is already a user with this username.");
+                    }else{
+                        fetch(`http://localhost:3000/registerUser`,{
+                        method: 'post',
+                        headers: {
+                            'Accept': 'application/json, text/plain, */*',
+                            'Content-Type': 'application/json'
+                        },
+                            body:JSON.stringify({userName: userRef.current.value, email: emailRef.current.value, passwd: passRef.current.value})
+                    }).then((res) => res.json())
+                    .then(res =>{
+                        console.log(res.userName);
+                        const data = {userName: res.userName, isLoggedIn: true};
+                        setUserInfo(data);
+                        onClose();
+                    });
+                    }
+                });
+            }else{
+                setError("Your passwords do not match");
+            }
         }else {
             setError("You have to input a username, password and email");
         }
@@ -140,6 +154,7 @@ export const Register = ({open, onClose}) =>{
                 id="confirmpass"
                 label="Confirm Password"
                 type="password"
+                inputRef={confirmPassRef}
                 InputLabelProps={{
                     classes:{ 
                         root: classes.floatingLabelFocusStyle,
