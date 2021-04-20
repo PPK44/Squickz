@@ -22,6 +22,7 @@ export const HighScores = () => {
       .then((res) => res.json())
       .then((res) => {
         // Sorts the result into three categories based on time, if they exist
+        // If response is equal to zero then we just empty the graphs
         if (res.length !== 0) {
           console.log(res);
           var Difficultytime10 = [];
