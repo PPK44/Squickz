@@ -11,24 +11,53 @@ export const HighScores = () => {
   const time10 = [];
   const time15 = [];
   const time20 = [];
-  // useEffect(() => {
-  //   getHighScoreData();
-  // }, [data])
-
-  const getAllHighScoreData = () => {
-    fetch(`http://localhost:3000/getScores`)
-    .then((res) => res.json())
-    .then(res =>{
-      console.log(res);
-    });
-  }
+  useEffect(() => {
+    getHighScoreData();
+  }, [time10, time15, time20])
 
   const getDifficultyHighScoreData = (difficulty) => {
     console.log(difficulty)
     fetch(`http://localhost:3000/getDifficultyHighScores?difficulty=${difficulty}`)
     .then((res) => res.json())
     .then(res =>{
-      console.log(res)
+      if (res.length !== 0){
+        console.log(res)
+        var Difficultytime10 = []
+        var Difficultytime15 = []
+        var Difficultytime20 = []
+        res.forEach(element => {
+          if(element.time === "10"){
+            Difficultytime10.push(element);
+          }else if(element.time === "15"){
+            Difficultytime15.push(element);
+          }else if(element.time === "20"){
+            Difficultytime20.push(element);
+          }
+        });
+        const topDifficulty210 = getTopN(Difficultytime10, "score", 5);
+        const topDifficulty215 = getTopN(Difficultytime15, "score", 5);
+        const topDifficulty220 = getTopN(Difficultytime20, "score", 5);
+        console.log(Difficultytime20)
+        console.log(topDifficulty220)
+        
+        d3.select(`#graph`).html("")
+        d3.select(`#graph1`).html("")
+        d3.select(`#graph2`).html("")
+
+        if (topDifficulty210.length !== 0){
+          drawChart(topDifficulty210, "graph", Difficultytime10[0].time, 1);
+        }
+        if (topDifficulty215.length !== 0){
+          drawChart(topDifficulty215, "graph1", Difficultytime15[0].time, 1);
+        }
+        if (topDifficulty220.length !== 0){
+          drawChart(topDifficulty220, "graph2", Difficultytime20[0].time, 1);
+        }
+      } else {
+        d3.select(`#graph`).html("")
+        d3.select(`#graph1`).html("")
+        d3.select(`#graph2`).html("")
+      }
     });
   }
 
@@ -44,7 +73,6 @@ export const HighScores = () => {
         }else if(element.time === "20"){
           time20.push(element);
         }
-        // If I want to seperate by level, foreach element.level === "hell", pretty much above
       });
       const top210 = getTopN(time10, "score", 2);
       const top215 = getTopN(time15, "score", 2);
@@ -70,13 +98,15 @@ export const HighScores = () => {
     return clone.slice(0, n || 1);
 }
 
-  const drawChart = (data, graph, time) =>{
+  // Flag - 0 = difficulty, 1 = users for x axis
+  const drawChart = (data, graph, time, flag) =>{
     const margin = 70;
     const width = 500;
     const height = 400;
     const chartWidth = width - 2 * margin;
     const chartHeight = height - 2 * margin;
-
+    
+    d3.select(`#${graph}`).html("")
     const svg = d3.select(`#${graph}`).append("svg")
         .attr("width", width)
         .attr("height", height);
@@ -93,7 +123,12 @@ export const HighScores = () => {
     var xScale = d3.scaleBand().range([0, chartWidth]).padding(0.4),
     yScale = d3.scaleLinear().range([chartHeight, 0]);
 
-    xScale.domain(data.map(function(d){return d.level;}));
+    if (flag == 0){
+      xScale.domain(data.map(function(d){return d.level;}));
+    } else if (flag == 1){
+      xScale.domain(data.map(function(d){return d.user;}));
+    }
+
     yScale.domain([0, d3.max(data, function(d) { return d.score; })+0.1]);
     chart.append('g')
         .attr('transform', `translate(0, ${chartHeight})`)
@@ -104,8 +139,8 @@ export const HighScores = () => {
              return d;
          }).ticks(10));
          const colourScale = d3.scaleLinear()
-         .domain([0, 0.5])
-         .range(['white', 'red']);
+         .domain([0, 100])
+         .range(['white', 'blue']);
     svg.append('text')
     .attr('x', -(height / 2))
     .attr('y', 50 / 2)
@@ -121,33 +156,46 @@ export const HighScores = () => {
         .style('fill', 'white')
         .text('Level');
 
-    chart.selectAll(".bar")
-         .data(data)
-         .enter().append("rect")
-         .attr("class", "bar")
-         .attr("x", function(d) { return xScale(d.level); })
-         .attr("y", function(d) { return yScale(d.score); })
-         .attr("width", xScale.bandwidth())
-         .attr("height", function(d) { return chartHeight - yScale(d.score); })
-         .attr("fill", (data) => colourScale(data.score));
+    if (flag == 0){
+        chart.selectAll(".bar")
+        .data(data)
+        .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", function(d) { return xScale(d.level); })
+        .attr("y", function(d) { return yScale(d.score); })
+        .attr("width", xScale.bandwidth())
+        .attr("height", function(d) { return chartHeight - yScale(d.score); })
+        .attr("fill", (data) => colourScale(data.score));
+    } else if (flag == 1){
+        chart.selectAll(".bar")
+        .data(data)
+        .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", function(d) { return xScale(d.user); })
+        .attr("y", function(d) { return yScale(d.score); })
+        .attr("width", xScale.bandwidth())
+        .attr("height", function(d) { return chartHeight - yScale(d.score); })
+        .attr("fill", (data) => colourScale(data.score));
+    }
+
     } 
 
   return (
     <div className={`w-full h-full p-5 text-white`}>
       <div class="flex flex-row items-center p-5 justify-around">
-        <button className="box-border h-32 w-32 p-4 border-pink-500 border-4 m4 rounded-lg"
+        <button className="box-border h-32 w-32 p-4 border-pink-200 border-4 m4 rounded-lg"
           onClick={getHighScoreData}
-        > 
-            Personal high scores
+        >
+          Personal high scores
         </button>
 
-        <button className="box-border h-32 w-32 border-pink-500 border-4 p-4 m4 rounded-lg"
+        <button className="box-border h-32 w-32 border-pink-300 border-4 p-4 m4 rounded-lg"
           onClick={() => getDifficultyHighScoreData("Easy")}
           // onClick={console.log("hi")}
         >
           Top easy high scores
         </button>
-        <button className="box-border h-32 w-32 border-pink-500 border-4 p-4 m4 rounded-lg"
+        <button className="box-border h-32 w-32 border-pink-400 border-4 p-4 m4 rounded-lg"
           onClick={() => getDifficultyHighScoreData("Medium")}
         >
           Top Medium high scores
@@ -159,7 +207,7 @@ export const HighScores = () => {
           Top Hard high scores
         </button>
 
-        <button className="box-border h-32 w-32 border-pink-500 border-4 p-4 m4 rounded-lg"
+        <button className="box-border h-32 w-32 border-pink-600 border-4 p-4 m4 rounded-lg"
           onClick={() => getDifficultyHighScoreData("Hell")}
         >
           Top Hell high scores

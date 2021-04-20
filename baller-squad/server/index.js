@@ -49,6 +49,7 @@ app.get("/getDifficultyHighScores", (req, res) => {
       res.send(list);
     }else{
       console.log("ERROR! no results on that data")
+      res.send([]);
     }
   });
 })
