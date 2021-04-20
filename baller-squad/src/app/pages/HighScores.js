@@ -2,6 +2,7 @@
 import React, {useEffect, useRef,useState, useContext} from "react";
 import * as d3 from "d3";
 import { UserContext } from "../userContext";
+import { GetAppSharp } from "@material-ui/icons";
 const data = "never";
 
 export const HighScores = () => {
@@ -10,18 +11,24 @@ export const HighScores = () => {
   const time10 = [];
   const time15 = [];
   const time20 = [];
-  useEffect(() => {
-    getHighScoreData();
-  }, [data])
+  // useEffect(() => {
+  //   getHighScoreData();
+  // }, [data])
 
   const getAllHighScoreData = () => {
-    fetch(`http://localhost:3000/getEasyHighScores`)
+    fetch(`http://localhost:3000/getScores`)
+    .then((res) => res.json())
+    .then(res =>{
+      console.log(res);
+    });
+  }
+
+  const getDifficultyHighScoreData = (difficulty) => {
+    console.log(difficulty)
+    fetch(`http://localhost:3000/getDifficultyHighScores?difficulty=${difficulty}`)
     .then((res) => res.json())
     .then(res =>{
       console.log(res)
-      // First sort by Time (3)
-      // then sort by difficulty (4)
-      // 12 charts?
     });
   }
 
@@ -62,8 +69,6 @@ export const HighScores = () => {
 
     return clone.slice(0, n || 1);
 }
-
-  
 
   const drawChart = (data, graph, time) =>{
     const margin = 70;
@@ -130,28 +135,32 @@ export const HighScores = () => {
   return (
     <div className={`w-full h-full p-5 text-white`}>
       <div class="flex flex-row items-center p-5 justify-around">
-        <button className="box-border h-32 w-32 p-4 border-pink-500 border-4 m4 rounded-lg"> 
+        <button className="box-border h-32 w-32 p-4 border-pink-500 border-4 m4 rounded-lg"
+          onClick={getHighScoreData}
+        > 
             Personal high scores
         </button>
+
         <button className="box-border h-32 w-32 border-pink-500 border-4 p-4 m4 rounded-lg"
-          onClick={dummyFunction}
+          onClick={() => getDifficultyHighScoreData("Easy")}
+          // onClick={console.log("hi")}
         >
           Top easy high scores
         </button>
         <button className="box-border h-32 w-32 border-pink-500 border-4 p-4 m4 rounded-lg"
-          onClick={getAllHighScoreData}
+          onClick={() => getDifficultyHighScoreData("Medium")}
         >
           Top Medium high scores
         </button>
 
         <button className="box-border h-32 w-32 border-pink-500 border-4 p-4 m4 rounded-lg"
-          onClick={getAllHighScoreData}
+          onClick={() => getDifficultyHighScoreData("Hard")}
         >
           Top Hard high scores
         </button>
 
         <button className="box-border h-32 w-32 border-pink-500 border-4 p-4 m4 rounded-lg"
-          onClick={getAllHighScoreData}
+          onClick={() => getDifficultyHighScoreData("Hell")}
         >
           Top Hell high scores
         </button>
@@ -168,7 +177,3 @@ export const HighScores = () => {
     </div>
   )
 };
-
-function dummyFunction(){
-  console.log("Poop")
-}
