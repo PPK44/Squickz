@@ -300,6 +300,7 @@ export const HighScores = () => {
       .style("fill", "white")
       .text("Score");
 
+  if (flag == 0){
     svg
       .append("text")
       .attr("x", chartWidth / 2 + margin)
@@ -307,6 +308,15 @@ export const HighScores = () => {
       .attr("text-anchor", "middle")
       .style("fill", "white")
       .text("Level");
+  }else{
+    svg
+      .append("text")
+      .attr("x", chartWidth / 2 + margin)
+      .attr("y", 380)
+      .attr("text-anchor", "middle")
+      .style("fill", "white")
+      .text("Users");
+  }
 
     if (flag === 0) {
       chart
