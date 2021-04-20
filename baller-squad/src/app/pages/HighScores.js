@@ -45,16 +45,16 @@ export const HighScores = () => {
           });
           const top10 = [];
           if (medium.length !== 0) {
-            top10.push(getTopN(medium, "score", 1));
+            top10.push(getTopN2(medium, "score", 1));
           }
           if (easy.length !== 0) {
-            top10.push(getTopN(easy, "score", 1));
+            top10.push(getTopN2(easy, "score", 1));
           }
           if (hard.length !== 0) {
-            top10.push(getTopN(hard, "score", 1));
+            top10.push(getTopN2(hard, "score", 1));
           }
           if (hell.length !== 0) {
-            top10.push(getTopN(hell, "score", 1));
+            top10.push(getTopN2(hell, "score", 1));
           }
           drawChart(top10, "graph", time10[0].time);
         }
@@ -76,16 +76,16 @@ export const HighScores = () => {
           });
           const top15 = [];
           if (medium.length !== 0) {
-            top15.push(getTopN(medium, "score", 1));
+            top15.push(getTopN2(medium, "score", 1));
           }
           if (easy.length !== 0) {
-            top15.push(getTopN(easy, "score", 1));
+            top15.push(getTopN2(easy, "score", 1));
           }
           if (hard.length !== 0) {
-            top15.push(getTopN(hard, "score", 1));
+            top15.push(getTopN2(hard, "score", 1));
           }
           if (hell.length !== 0) {
-            top15.push(getTopN(hell, "score", 1));
+            top15.push(getTopN2(hell, "score", 1));
           }
           drawChart(top15, "graph1", time15[0].time);
         }
@@ -107,16 +107,16 @@ export const HighScores = () => {
           });
           const top20 = [];
           if (medium.length !== 0) {
-            top20.push(getTopN(medium, "score", 1));
+            top20.push(getTopN2(medium, "score", 1));
           }
           if (easy.length !== 0) {
-            top20.push(getTopN(easy, "score", 1));
+            top20.push(getTopN2(easy, "score", 1));
           }
           if (hard.length !== 0) {
-            top20.push(getTopN(hard, "score", 1));
+            top20.push(getTopN2(hard, "score", 1));
           }
           if (hell.length !== 0) {
-            top20.push(getTopN(hell, "score", 1));
+            top20.push(getTopN2(hell, "score", 1));
           }
           drawChart(top20, "graph2", time20[0].time);
         }
@@ -124,6 +124,20 @@ export const HighScores = () => {
   };
   //reference: https://stackoverflow.com/questions/22949597/getting-max-values-in-json-array
   const getTopN = (arr, prop, n) => {
+    // clone before sorting, to preserve the original array
+    const clone = arr.slice(0);
+
+    // sort descending
+    clone.sort(function (x, y) {
+      if (x[prop] === y[prop]) return 0;
+      else if (parseInt(x[prop]) < parseInt(y[prop])) return 1;
+      else return -1;
+    });
+
+    return clone.slice(0, n || 1);
+  };
+
+  const getTopN2 = (arr, prop, n) => {
     // clone before sorting, to preserve the original array
     const clone = arr.slice(0);
 
@@ -234,7 +248,7 @@ export const HighScores = () => {
       className={`w-full h-full p-5 flex flex-col flex1 justify-between items-center text-white`}
     >
       <div
-        className={`flex xl:flex-row flex-col space-y-4 flex1 h-full w-full text-white lg:items-left items-center justify-start`}
+        className={`flex xl:flex-row flex-col space-y-4 flex1 h-full w-full xl:justify-evenly text-white items-center justify-start`}
       >
         <div
           id="graph"
