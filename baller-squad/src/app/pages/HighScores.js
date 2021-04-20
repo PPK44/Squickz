@@ -44,101 +44,11 @@ export const HighScores = () => {
         var NoDuplicateDifficultytime10 = []
         var NoDuplicateDifficultytime15 = []
         var NoDuplicateDifficultytime20 = []
-
-        function noDuplicateDifficulty(DuplicateArray){
-          var newArray = [];
-          let isInArray = false;
-
-          DuplicateArray.forEach((d) =>{
-            if (newArray.length == 0){
-              newArray.push(d)
-            }
-            newArray.map((v, i) => {
-              // If user is already in newArray
-              // True: Check which score is higher and pop the lower one out
-              // False: Insert user
-              if (v.user === d.user){
-                isInArray = true;
-                if(d.score > v.score){
-                  newArray.push(d)
-                  newArray.splice(i, 1)
-                }
-              }
-            });
-
-            if (isInArray === false) {
-              newArray.push(d)
-            }
-          });
-          return newArray;
-        }        
+        
         NoDuplicateDifficultytime10 = noDuplicateDifficulty(Difficultytime10)
         NoDuplicateDifficultytime15 = noDuplicateDifficulty(Difficultytime15)
         NoDuplicateDifficultytime20 = noDuplicateDifficulty(Difficultytime20)
-        
-        // Difficultytime10.forEach((d) =>{
-        //   let isInArray = false;
 
-        //   if (NoDuplicateDifficultytime10.length == 0){
-        //     NoDuplicateDifficultytime10.push(d)
-        //   }
-        //   NoDuplicateDifficultytime10.map((v, i) => {
-        //     // If user is already in NoDuplicateArray
-        //     // True: Check which score is higher and pop the lower one out
-        //     if (v.user === d.user){
-        //       isInArray = true;
-        //       if(d.score > v.score){
-        //         NoDuplicateDifficultytime10.push(d)
-        //         NoDuplicateDifficultytime10.splice(i, 1)
-        //       }
-        //     }
-        //   });
-
-        //   if (isInArray === false) {
-        //     NoDuplicateDifficultytime10.push(d)
-        //   }
-        // });
-
-        // Difficultytime15.forEach((d) =>{
-        //   if (NoDuplicateDifficultytime15.length == 0){
-        //     NoDuplicateDifficultytime15.push(d)
-        //   }
-        //   NoDuplicateDifficultytime15.map((v, i) => {
-        //     // If user is already in NoDuplicateArray
-        //     // True: Check which score is higher and pop the lower one out
-        //     // False: Insert user
-        //     if (v.user == d.user){
-        //       if(d.score > v.score){
-        //         NoDuplicateDifficultytime15.push(d)
-        //         NoDuplicateDifficultytime15.splice(i, 1)
-        //       }
-        //     } else if (v.user != d.user)  {
-        //       NoDuplicateDifficultytime15.push(d)
-        //     }
-        //   });
-        // });
-
-        // Difficultytime20.forEach((d) =>{
-        //   if (NoDuplicateDifficultytime20.length == 0){
-        //     NoDuplicateDifficultytime20.push(d)
-        //   }
-        //   NoDuplicateDifficultytime20.map((v, i) => {
-        //     // If user is already in NoDuplicateArray
-        //     // True: Check which score is higher and pop the lower one out
-        //     // False: Insert user
-        //     if (v.user == d.user){
-        //       if(d.score > v.score){
-        //         NoDuplicateDifficultytime20.push(d)
-        //         NoDuplicateDifficultytime20.splice(i, 1)
-        //       }
-        //     } else if (v.user != d.user)  {
-        //       NoDuplicateDifficultytime20.push(d)
-        //     }
-        //   });
-        // });
-
-        console.log("NoDuplicate")
-        console.log(NoDuplicateDifficultytime10)
         const topDifficulty210 = getTopN(NoDuplicateDifficultytime10, "score", 5);
         const topDifficulty215 = getTopN(NoDuplicateDifficultytime15, "score", 5);
         const topDifficulty220 = getTopN(NoDuplicateDifficultytime20, "score", 5);
@@ -328,3 +238,31 @@ export const HighScores = () => {
     </div>
   )
 };
+
+function noDuplicateDifficulty(DuplicateArray){
+  var newArray = [];
+
+  DuplicateArray.forEach((d) =>{
+    let isInArray = false;
+    if (newArray.length == 0){
+      newArray.push(d)
+    }
+    newArray.map((v, i) => {
+      // If user is already in newArray
+      // True: Check which score is higher and pop the lower one out
+      // False: Insert user
+      if (v.user === d.user){
+        isInArray = true;
+        if(d.score > v.score){
+          newArray.push(d)
+          newArray.splice(i, 1)
+        }
+      }
+    });
+
+    if (isInArray === false) {
+      newArray.push(d)
+    }
+  });
+  return newArray;
+}
