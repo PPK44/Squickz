@@ -1,5 +1,6 @@
 import React from "react";
 
+// Button to show graph for the targeted data
 export const HighScoreButton = ({ text, onClick }) => {
   return (
     <>
