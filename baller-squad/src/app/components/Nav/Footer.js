@@ -1,12 +1,12 @@
 // Nav section for application
 // using code from here https://tailwindui.com/components/application-ui/navigation/navbars
-import React, { useEffect } from "react";
+import React from "react";
 import { useFetch } from "../API/APIFetch";
 
 // Icons from:
 // https://icons8.com/
 export const Footer = () => {
-  const { data, loading } = useFetch(`http://www.numbersapi.com/random/trivia`);
+  const { data, loading } = useFetch(`https://uselessfacts.jsph.pl/random.html`);
 
   return (
     <footer className="p-5 w-full bottom-0 inset-x-0 sm:px-6 lg:px-8 bg-simple-gray-1e">
