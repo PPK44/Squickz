@@ -57,6 +57,11 @@ export const Home = () => {
               This app was brought to you by the <i>BallerSquad</i>
             </div>
             <Profile
+              name={`Paul Kerrigan`}
+              studentNumber={100643837}
+              description={`A strong, dependable boy.  Always there for ya and likes tea.`}
+            />
+            <Profile
               name={`Calvin Lapp`}
               studentNumber={100561321}
               description={`Coolest person in the group.  Really kind, caring, sweet, athletic, funny, humble, handsome, and amazing at everything he does.`}
@@ -66,11 +71,7 @@ export const Home = () => {
               studentNumber={100625387}
               description={`A handsome devil and the charm of the group.  Likes to giggle.`}
             />
-            <Profile
-              name={`Paul Kerrigan`}
-              studentNumber={100643837}
-              description={`A strong, dependable boy.  Always there for ya and likes tea.`}
-            />
+            
           </div>
         </div>
       </div>

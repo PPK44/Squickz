@@ -28,14 +28,14 @@ export const Register = ({open, onClose}) =>{
         if(userRef.current.value !== "" && passRef.current.value !== "" && emailRef.current.value !== ""){
             if(passRef.current.value === confirmPassRef.current.value){
                 if(re.test(emailRef.current.value)){
-                fetch(`https://squickz.paulkerrigan.ca/getUsers?username=${userRef.current.value}`)
+                fetch(`https://squickz-backend.vercel.app/getUsers?username=${userRef.current.value}`)
                 .then((res) => res.json())
                 .then((res) => {
                     console.log(res.length);
                     if(res.length !== 0){
                         setError("There is already a user with this username.");
                     }else{
-                        fetch(`https://squickz.paulkerrigan.ca/registerUser`,{
+                        fetch(`https://squickz-backend.vercel.app/registerUser`,{
                         method: 'post',
                         headers: {
                             'Accept': 'application/json, text/plain, */*',
