@@ -10,7 +10,7 @@ export const Footer = () => {
 
   return (
     <footer className="p-5 w-full bottom-0 inset-x-0 sm:px-6 lg:px-8 bg-simple-gray-1e">
-      <div className="text-xl text-center">Trivia API: "{loading ? "loading..." : data}"</div>
+      <div className="text-xl text-center">Trivia API: "{loading ? "loading..." : data.text}"</div>
       <div className="flex flex-row flex1 justify-between">
         <div className="flex">Copyright 2021</div>
         <div className="flex flex-row-reverse gap-4">
