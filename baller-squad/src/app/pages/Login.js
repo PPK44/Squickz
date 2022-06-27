@@ -91,7 +91,7 @@ export const Login = ({ open, onClose }) => {
   // to make sure the use exist and if it does log them in and close form
   const formSubmit = () => {
     if(userRef.current.value !== "" && passRef.current.value !== ""){
-      fetch(`https://squickz.paulkerrigan.ca/getUsers?username=${userRef.current.value}`)
+      fetch(`https://squickz-backend.vercel.app/getUsers?username=${userRef.current.value}`)
         .then((res) => res.json())
         .then((res) => {
           console.log(res.length);

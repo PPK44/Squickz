@@ -17,7 +17,7 @@ export const HighScores = () => {
   const getDifficultyHighScoreData = (difficulty) => {
     console.log(difficulty);
     fetch(
-      `http://localhost:3000/getDifficultyHighScores?difficulty=${difficulty}`
+      `https://squickz-backend.vercel.app/getDifficultyHighScores?difficulty=${difficulty}`
     )
       .then((res) => res.json())
       .then((res) => {
@@ -99,7 +99,7 @@ export const HighScores = () => {
     var easy = [];
     var hard = [];
     var hell = [];
-    fetch(`http://localhost:3000/getHighScores?username=${userInfo.userName}`)
+    fetch(`https://squickz-backend.vercel.app/getHighScores?username=${userInfo.userName}`)
       .then((res) => res.json())
       .then((res) => {
         // Sorts the result into three categories based on time
