@@ -59,17 +59,17 @@ export const Home = () => {
             <Profile
               name={`Paul Kerrigan`}
               studentNumber={100643837}
-              description={`A strong, dependable boy.  Always there for ya and likes tea.`}
+              description={`Backend Development and Front End`}
             />
             <Profile
               name={`Calvin Lapp`}
               studentNumber={100561321}
-              description={`Coolest person in the group.  Really kind, caring, sweet, athletic, funny, humble, handsome, and amazing at everything he does.`}
+              description={`Front End and Style King`}
             />
             <Profile
               name={`Henry Zheng`}
               studentNumber={100625387}
-              description={`A handsome devil and the charm of the group.  Likes to giggle.`}
+              description={`Front End and Planner`}
             />
             
           </div>

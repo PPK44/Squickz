@@ -14,7 +14,7 @@ export const Profile = ({ name, studentNumber, description }) => {
             <i>{studentNumber}</i>
           </div>
         </div>
-        <div className={`text-lg sm:text-sm w-1/2 text-right p-5 rounded-lg bg-opacity-10 bg-white h-full`}>
+        <div className={`text-lg sm:text-sm w-1/4 text-right p-5 rounded-lg bg-opacity-10 bg-white h-full`}>
           {description}
         </div>
       </div>
